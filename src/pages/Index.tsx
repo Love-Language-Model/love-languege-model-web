@@ -16,12 +16,12 @@ const Index = () => {
             A movement to spread love and understanding through AI
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/signup">
+            <Link to="/chat">
               <Button className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90">
                 Start with Text
               </Button>
             </Link>
-            <Link to="/about">
+            <Link to="/login">
               <Button variant="outline" className="w-full sm:w-auto bg-transparent border-white text-white hover:text-white hover:bg-white/5 hover:border-white/80">
                 Coming soon
                 <Mic className="ml-2 h-4 w-4" />

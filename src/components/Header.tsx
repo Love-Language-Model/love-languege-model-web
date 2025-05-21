@@ -39,16 +39,12 @@ const Header = ({ showLoginButton = true, whiteBackground = false }: HeaderProps
           </Link>
         )}
       </div>
-
-      {/* Mobile Menu Button */}
       <button 
         className={`md:hidden ${whiteBackground ? 'text-black' : 'text-white'}`}
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         <Menu size={24} />
       </button>
-
-      {/* Mobile Menu */}
       {isMenuOpen && (
         <div className={`fixed inset-0 ${whiteBackground ? 'bg-white/95' : 'bg-black/95'} backdrop-blur-sm md:hidden`}>
           <div className="h-full flex flex-col items-center justify-center space-y-8 p-4">
