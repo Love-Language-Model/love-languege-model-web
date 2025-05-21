@@ -45,12 +45,8 @@ const Chat = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Header whiteBackground isAuthenticated={isAuthenticated}>
-        <div className="max-w-7xl w-full mx-auto px-4">
-          
-        </div>
-      </Header>
-      <main className="flex-1 flex flex-col items-center justify-center py-8 px-4 pb-24">
+      <Header whiteBackground isAuthenticated={isAuthenticated} />
+      <main className="flex-1 flex flex-col items-center justify-center py-8 px-4 pb-24 pt-24">
         <div className="max-w-2xl w-full space-y-8">
           <div className="text-center space-y-2">
             <h1 className="text-3xl font-semibold text-black">
@@ -102,7 +98,7 @@ const Chat = () => {
           </div>
         </div>
       </main>
-      <div className="fixed bottom-0 left-0 right-0 text-center text-black/70 text-sm py-6 bg-white/80 backdrop-blur-sm">
+      <div className="text-center text-black/70 dark:text-white/70 text-sm py-6 bg-white/80 dark:bg-black/80 backdrop-blur-sm">
         "Always remember you are loved."
       </div>
     </div>
