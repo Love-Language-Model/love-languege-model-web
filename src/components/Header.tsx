@@ -1,4 +1,4 @@
-import { Menu } from 'lucide-react';
+import { Menu, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -10,9 +10,10 @@ interface HeaderProps {
   showLoginButton?: boolean;
   whiteBackground?: boolean;
   children?: React.ReactNode;
+  isAuthenticated?: boolean;
 }
 
-const Header = ({ showLoginButton = true, whiteBackground = false, children }: HeaderProps) => {
+const Header = ({ showLoginButton = true, whiteBackground = false, children, isAuthenticated = false }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -30,15 +31,22 @@ const Header = ({ showLoginButton = true, whiteBackground = false, children }: H
             share
           </Link>
           <LanguageButton whiteBackground={whiteBackground} />
-          {showLoginButton && (
+          {showLoginButton && !isAuthenticated && (
             <Link to="/login">
               <Button variant="outline" className={`${whiteBackground ? 'border-black text-black hover:text-black hover:bg-black/5 hover:border-black/80' : 'bg-transparent border-white text-white hover:text-white hover:bg-white/5 hover:border-white/80'} transition-colors rounded-[28px]`}>
                 login
               </Button>
             </Link>
           )}
+          {isAuthenticated && (
+            <Link to="/chat">
+              <Button variant="outline" size="icon" className={`${whiteBackground ? 'border-black text-black hover:text-black hover:bg-black/5 hover:border-black/80' : 'bg-transparent border-white text-white hover:text-white hover:bg-white/5 hover:border-white/80'} transition-colors rounded-full border-2`}>
+                <User className="h-5 w-5" />
+              </Button>
+            </Link>
+          )}
         </div>
-        <button 
+        <button
           className={`md:hidden ${whiteBackground ? 'text-black' : 'text-white'}`}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
@@ -47,7 +55,7 @@ const Header = ({ showLoginButton = true, whiteBackground = false, children }: H
         {isMenuOpen && (
           <div className={`fixed inset-0 ${whiteBackground ? 'bg-white/95' : 'bg-black/95'} backdrop-blur-sm md:hidden z-50`}>
             <div className="h-full flex flex-col items-center justify-center space-y-8 p-4">
-              <button 
+              <button
                 className={`absolute top-4 right-4 ${whiteBackground ? 'text-black' : 'text-white'}`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -65,10 +73,17 @@ const Header = ({ showLoginButton = true, whiteBackground = false, children }: H
               <div className="py-4">
                 <LanguageButton whiteBackground={whiteBackground} />
               </div>
-              {showLoginButton && (
+              {showLoginButton && !isAuthenticated && (
                 <Link to="/login">
                   <Button variant="outline" className={`${whiteBackground ? 'border-black text-black hover:text-black hover:bg-black/5 hover:border-black/80' : 'bg-transparent border-white text-white hover:text-white hover:bg-white/5 hover:border-white/80'} transition-colors w-48 rounded-[28px]`}>
                     login
+                  </Button>
+                </Link>
+              )}
+              {isAuthenticated && (
+                <Link to="/profile">
+                  <Button variant="outline" size="icon" className={`${whiteBackground ? 'border-black text-black hover:text-black hover:bg-black/5 hover:border-black/80' : 'bg-transparent border-white text-white hover:text-white hover:bg-white/5 hover:border-white/80'} transition-colors rounded-full border-2`}>
+                    <User className="h-5 w-5" />
                   </Button>
                 </Link>
               )}

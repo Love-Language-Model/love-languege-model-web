@@ -34,6 +34,7 @@ const topics: Topic[] = [
 const Chat = () => {
   const [message, setMessage] = useState<string>('');
   const [publicMode, setPublicMode] = useState<boolean>(true);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
 
   const handleSendMessage = () => {
     if (message.trim()) {
@@ -44,9 +45,9 @@ const Chat = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Header whiteBackground>
+      <Header whiteBackground isAuthenticated={isAuthenticated}>
         <div className="max-w-7xl w-full mx-auto px-4">
-          {/* Header content will be rendered here */}
+          
         </div>
       </Header>
       <main className="flex-1 flex flex-col items-center justify-center py-8 px-4 pb-24">
