@@ -81,7 +81,7 @@ const Header = ({ showLoginButton = true, whiteBackground = false, children, isA
                 </Link>
               )}
               {isAuthenticated && (
-                <Link to="/profile">
+                <Link to="/chat">
                   <Button variant="outline" size="icon" className={`${whiteBackground ? 'border-black text-black hover:text-black hover:bg-black/5 hover:border-black/80' : 'bg-transparent border-white text-white hover:text-white hover:bg-white/5 hover:border-white/80'} transition-colors rounded-full border-2`}>
                     <User className="h-5 w-5" />
                   </Button>
