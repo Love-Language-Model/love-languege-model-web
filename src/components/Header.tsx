@@ -33,9 +33,9 @@ const getRandomColor = () => {
 };
 
 const Header = ({ showLoginButton = true, whiteBackground = false, children, isAuthenticated = false }: HeaderProps) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [initials] = useState(getRandomInitials());
   const [bgColor] = useState(getRandomColor());
+  const [initials] = useState(getRandomInitials());
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <>
@@ -45,13 +45,13 @@ const Header = ({ showLoginButton = true, whiteBackground = false, children, isA
             <Logo whiteBackground={whiteBackground} />
           </div>
           <div className="hidden md:flex items-center gap-8">
-            <Link to="/about" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors`}>
+            <Link to="/" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors`}>
               the movement
             </Link>
-            <Link to="/donate" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors`}>
+            <Link to="/" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors`}>
               donate
             </Link>
-            <Link to="/share" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors`}>
+            <Link to="/" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors`}>
               share
             </Link>
             {showLoginButton && !isAuthenticated && (
@@ -63,7 +63,7 @@ const Header = ({ showLoginButton = true, whiteBackground = false, children, isA
             )}
             {isAuthenticated && (
               <Link
-                to="/profile"
+                to="/chat"
                 className={`flex items-center justify-center w-[42px] h-[42px] rounded-full ${bgColor} text-white font-medium text-lg`}
               >
                 {initials}
@@ -74,7 +74,7 @@ const Header = ({ showLoginButton = true, whiteBackground = false, children, isA
             className={`md:hidden ${whiteBackground ? 'text-black' : 'text-white'}`}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            <Menu size={24} />
           </button>
         </div>
         {children}
@@ -88,25 +88,23 @@ const Header = ({ showLoginButton = true, whiteBackground = false, children, isA
             >
               <X size={24} />
             </button>
-            <Link to="/about" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors text-xl`}>
+            <Link to="/" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors text-xl`}>
               the movement
             </Link>
-            <Link to="/donate" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors text-xl`}>
+            <Link to="/" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors text-xl`}>
               donate
             </Link>
-            <Link to="/share" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors text-xl`}>
+            <Link to="/" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors text-xl`}>
               share
             </Link>
             {showLoginButton && !isAuthenticated && (
-              <Link to="/login">
-                <Button variant="outline" className={`${whiteBackground ? 'border-black text-black hover:text-black hover:bg-black/5 hover:border-black/80' : 'bg-transparent border-white text-white hover:text-white hover:bg-white/5 hover:border-white/80'} transition-colors w-48 rounded-[28px]`}>
-                  login
-                </Button>
+              <Link to="/login" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors text-xl`}>
+                login
               </Link>
             )}
             {isAuthenticated && (
               <Link
-                to="/profile"
+                to="/chat"
                 className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors text-xl`}
               >
                 profile
