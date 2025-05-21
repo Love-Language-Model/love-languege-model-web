@@ -1,12 +1,9 @@
 import { useState } from 'react';
 
-import { Link } from 'react-router-dom';
 import { Send, Plus } from 'lucide-react';
 
-import Logo from '@/components/Logo';
 import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
-import { Avatar } from '@/components/ui/avatar';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -37,11 +34,6 @@ const topics: Topic[] = [
 const Chat = () => {
   const [message, setMessage] = useState<string>('');
   const [publicMode, setPublicMode] = useState<boolean>(true);
-  const [isTopicsVisible, setTopicsVisible] = useState<boolean>(true);
-
-  const toggleTopics = () => {
-    setTopicsVisible(!isTopicsVisible);
-  };
 
   const handleSendMessage = () => {
     if (message.trim()) {
@@ -52,8 +44,12 @@ const Chat = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Header whiteBackground />
-      <main className="flex-1 flex flex-col items-center justify-center py-8 px-4">
+      <Header whiteBackground>
+        <div className="max-w-7xl w-full mx-auto px-4">
+          {/* Header content will be rendered here */}
+        </div>
+      </Header>
+      <main className="flex-1 flex flex-col items-center justify-center py-8 px-4 pb-24">
         <div className="max-w-2xl w-full space-y-8">
           <div className="text-center space-y-2">
             <h1 className="text-3xl font-semibold text-black">
@@ -85,39 +81,29 @@ const Chat = () => {
               </div>
             </div>
           </div>
-          {isTopicsVisible && (
-            <div className="space-y-4">
-              <h2 className="text-black/80 text-center">
-                Want to talk about a specific topic? Choose here
-              </h2>
-              <div className="flex flex-wrap justify-center gap-2">
-                {topics.map(topic => (
-                  <Button
-                    key={topic.id}
-                    variant="outline"
-                    className="bg-topic hover:bg-topic-hover text-black rounded-full"
-                  >
-                    <span className="mr-2">{topic.icon}</span>
-                    {topic.name}
-                  </Button>
-                ))}
-              </div>
-              <div className="text-center">
+
+          <div className="space-y-4">
+            <h2 className="text-black/80 text-center">
+              Want to talk about a specific topic? Choose here
+            </h2>
+            <div className="flex flex-wrap justify-center gap-2">
+              {topics.map(topic => (
                 <Button
-                  variant="link"
-                  className="text-blue-400 hover:text-blue-300"
-                  onClick={toggleTopics}
+                  key={topic.id}
+                  variant="outline"
+                  className="bg-topic hover:bg-topic-hover text-black rounded-full"
                 >
-                  see less
+                  <span className="mr-2">{topic.icon}</span>
+                  {topic.name}
                 </Button>
-              </div>
+              ))}
             </div>
-          )}
-          <div className="text-center text-black/70 text-sm">
-            "Always remember you are loved."
           </div>
         </div>
       </main>
+      <div className="fixed bottom-0 left-0 right-0 text-center text-black/70 text-sm py-6 bg-white/80 backdrop-blur-sm">
+        "Always remember you are loved."
+      </div>
     </div>
   );
 };
