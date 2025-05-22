@@ -18,12 +18,12 @@ const Profile = () => {
       <Header whiteBackground={true} isAuthenticated={true} />
       <main className="flex-1 pt-20 md:pt-24">
         <div className="max-w-5xl mx-auto w-full">
-          <div className="md:hidden w-full bg-white sticky top-[75px] z-40 border-b border-gray-100">
+          <div className="md:hidden w-full bg-white/80 backdrop-blur-sm sticky top-[75px] z-40 border-b border-gray-100">
             <nav className="grid grid-cols-3 w-full">
               <Link to="/profile" className="flex-1">
                 <Button 
                   variant="ghost" 
-                  className={`${!isTokensActive && !isConversationsActive ? 'bg-[#B6B6E5] text-[#4050B5]' : 'text-[#616161]'} w-full rounded-none h-14 flex items-center justify-center gap-2`}
+                  className={`${!isTokensActive && !isConversationsActive ? 'bg-[#B6B6E5] text-[#4050B5]' : 'text-[#616161] hover:bg-gray-100/50'} w-full rounded-none h-14 flex items-center justify-center gap-2`}
                 >
                   <User size={18} className="hidden sm:block" />
                   <span className="text-sm">My profile</span>
@@ -32,7 +32,7 @@ const Profile = () => {
               <Link to="/profile/tokens" className="flex-1">
                 <Button 
                   variant="ghost" 
-                  className={`${isTokensActive ? 'bg-[#B6B6E5] text-[#4050B5]' : 'text-[#616161]'} w-full rounded-none h-14 flex items-center justify-center gap-2`}
+                  className={`${isTokensActive ? 'bg-[#B6B6E5] text-[#4050B5]' : 'text-[#616161] hover:bg-gray-100/50'} w-full rounded-none h-14 flex items-center justify-center gap-2`}
                 >
                   <Heart size={18} className="hidden sm:block" />
                   <span className="text-sm">My tokens</span>
@@ -41,7 +41,7 @@ const Profile = () => {
               <Link to="/profile/conversations" className="flex-1">
                 <Button 
                   variant="ghost" 
-                  className={`${isConversationsActive ? 'bg-[#B6B6E5] text-[#4050B5]' : 'text-[#616161]'} w-full rounded-none h-14 flex items-center justify-center gap-2`}
+                  className={`${isConversationsActive ? 'bg-[#B6B6E5] text-[#4050B5]' : 'text-[#616161] hover:bg-gray-100/50'} w-full rounded-none h-14 flex items-center justify-center gap-2`}
                 >
                   <MessageCircle size={18} className="hidden sm:block" />
                   <span className="text-sm">Conversations</span>
