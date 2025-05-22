@@ -36,7 +36,6 @@ const ProfileInfo = () => {
         </div>
         <div className="flex flex-col sm:flex-row items-center gap-6">
           <div>
-            <Label>Profile picture:</Label>
             <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile" className="w-20 h-20 rounded-full object-cover mt-2" />
           </div>
           <div className="flex flex-col gap-2 mt-6 sm:mt-0">
