@@ -24,7 +24,8 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/chat" element={<Chat />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/*" element={<Profile />} />
+          <Route path="/tokens/*" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
