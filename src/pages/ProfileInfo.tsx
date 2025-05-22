@@ -6,7 +6,7 @@ import { Select } from '@/components/ui/select';
 const ProfileInfo = () => {
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-semibold text-gray-900">My Profile</h1>
+      <h1 className="text-2xl font-semibold text-gray-900">MY PROFILE</h1>
       <form className="space-y-6">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
