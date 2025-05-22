@@ -63,7 +63,7 @@ const Header = ({ showLoginButton = true, whiteBackground = false, children, isA
             )}
             {isAuthenticated && (
               <Link
-                to="/chat"
+                to="/profile"
                 className={`flex items-center justify-center w-[42px] h-[42px] rounded-full ${bgColor} text-white font-medium text-lg`}
               >
                 {initials}
@@ -104,7 +104,7 @@ const Header = ({ showLoginButton = true, whiteBackground = false, children, isA
             )}
             {isAuthenticated && (
               <Link
-                to="/chat"
+                to="/profile"
                 className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors text-xl`}
               >
                 profile
