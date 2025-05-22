@@ -17,16 +17,15 @@ const Signup = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement signup logic
     console.log({ name, email, password, confirmPassword, agreeToTerms });
   };
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
       <Header showLoginButton={false} />
-      <div className="flex-1 flex items-center justify-center">
+      <div className="flex-1 flex items-center justify-center pt-24">
         <div className="w-full max-w-md px-4">
-          <h1 className="text-3xl font-bold mb-8 text-center">Join the movement</h1>
+          <h1 className="text-3xl font-bold mb-8 text-center">Welcome to the movem</h1>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="name">Name</Label>
