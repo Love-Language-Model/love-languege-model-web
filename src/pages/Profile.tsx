@@ -23,7 +23,7 @@ const Profile = () => {
               <Link to="/profile" className="flex-1">
                 <Button 
                   variant="ghost" 
-                  className={`${!isTokensActive && !isConversationsActive ? 'bg-[#B6B6E5] text-[#4050B5]' : 'text-[#616161] hover:bg-gray-100/50'} w-full rounded-none h-14 flex items-center justify-center gap-2`}
+                  className={`${!isTokensActive && !isConversationsActive ? 'bg-[#B6B6E5] text-[#4050B5] hover:bg-[#B6B6E5]' : 'text-[#616161] hover:bg-gray-100/50'} w-full rounded-none h-14 flex items-center justify-center gap-2`}
                 >
                   <User size={18} className="hidden sm:block" />
                   <span className="text-sm">My profile</span>
@@ -32,7 +32,7 @@ const Profile = () => {
               <Link to="/profile/tokens" className="flex-1">
                 <Button 
                   variant="ghost" 
-                  className={`${isTokensActive ? 'bg-[#B6B6E5] text-[#4050B5]' : 'text-[#616161] hover:bg-gray-100/50'} w-full rounded-none h-14 flex items-center justify-center gap-2`}
+                  className={`${isTokensActive ? 'bg-[#B6B6E5] text-[#4050B5] hover:bg-[#B6B6E5]' : 'text-[#616161] hover:bg-gray-100/50'} w-full rounded-none h-14 flex items-center justify-center gap-2`}
                 >
                   <Heart size={18} className="hidden sm:block" />
                   <span className="text-sm">My tokens</span>
@@ -41,7 +41,7 @@ const Profile = () => {
               <Link to="/profile/conversations" className="flex-1">
                 <Button 
                   variant="ghost" 
-                  className={`${isConversationsActive ? 'bg-[#B6B6E5] text-[#4050B5]' : 'text-[#616161] hover:bg-gray-100/50'} w-full rounded-none h-14 flex items-center justify-center gap-2`}
+                  className={`${isConversationsActive ? 'bg-[#B6B6E5] text-[#4050B5] hover:bg-[#B6B6E5]' : 'text-[#616161] hover:bg-gray-100/50'} w-full rounded-none h-14 flex items-center justify-center gap-2`}
                 >
                   <MessageCircle size={18} className="hidden sm:block" />
                   <span className="text-sm">Conversations</span>
@@ -53,19 +53,19 @@ const Profile = () => {
             <aside className="w-64 pr-8 border-r border-gray-200 pt-2 hidden md:block sticky top-24 h-[calc(100vh-6rem)]">
               <nav className="flex flex-col gap-2">
                 <Link to="/profile">
-                  <button className={`${!isTokensActive && !isConversationsActive ? 'bg-[#B6B6E5] text-[#4050B5]' : 'text-[#616161]'} rounded-md px-4 py-2 text-left font-medium w-full flex items-center gap-2`}>
+                  <button className={`${!isTokensActive && !isConversationsActive ? 'bg-[#B6B6E5] text-[#4050B5] hover:bg-[#B6B6E5]' : 'text-[#616161] hover:bg-gray-100/50'} rounded-md px-4 py-2 text-left font-medium w-full flex items-center gap-2`}>
                     <User size={18} />
                     My profile
                   </button>
                 </Link>
                 <Link to="/profile/tokens">
-                  <button className={`${isTokensActive ? 'bg-[#B6B6E5] text-[#4050B5]' : 'text-[#616161]'} rounded-md px-4 py-2 text-left w-full flex items-center gap-2`}>
+                  <button className={`${isTokensActive ? 'bg-[#B6B6E5] text-[#4050B5] hover:bg-[#B6B6E5]' : 'text-[#616161] hover:bg-gray-100/50'} rounded-md px-4 py-2 text-left w-full flex items-center gap-2`}>
                     <Heart size={18} />
                     My love tokens
                   </button>
                 </Link>
                 <Link to="/profile/conversations">
-                  <button className={`${isConversationsActive ? 'bg-[#B6B6E5] text-[#4050B5]' : 'text-[#616161]'} rounded-md px-4 py-2 text-left w-full flex items-center gap-2`}>
+                  <button className={`${isConversationsActive ? 'bg-[#B6B6E5] text-[#4050B5] hover:bg-[#B6B6E5]' : 'text-[#616161] hover:bg-gray-100/50'} rounded-md px-4 py-2 text-left w-full flex items-center gap-2`}>
                     <MessageCircle size={18} />
                     My conversations
                   </button>
