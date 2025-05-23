@@ -1,9 +1,9 @@
 import { User, Heart, MessageCircle } from 'lucide-react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 
-import ProfileInfo from '@/pages/ProfileInfo';
-import { LoveTokens } from '@/pages/LoveTokens';
-import Conversations from '@/pages/Conversations';
+import Info from '@/pages/Profile/Info';
+import { LoveTokens } from '@/pages/Profile/LoveTokens';
+import Conversations from '@/pages/Profile/Conversations';
 
 import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
@@ -74,7 +74,7 @@ const Profile = () => {
             </aside>
             <div className="flex-1 md:pl-8 pb-12 pt-6">
               <Routes>
-                <Route path="/" element={<ProfileInfo />} />
+                <Route path="/" element={<Info />} />
                 <Route path="/tokens/*" element={<LoveTokens />} />
                 <Route path="/conversations" element={<Conversations />} />
               </Routes>
