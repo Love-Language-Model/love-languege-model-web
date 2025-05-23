@@ -87,12 +87,6 @@ const Info = () => {
             <Button variant="outline" className="border-[#B5322A] text-[#B5322A] rounded-full px-6 w-full sm:w-auto">Delete my account</Button>
           </div>
         </div>
-        <div>
-          <Label>Language</Label>
-          <Select defaultValue="Automatic" disabled>
-            <option>Automatic</option>
-          </Select>
-        </div>
         <div className="flex justify-end">
           <Button className="bg-[#6B6BCB] text-white rounded-full px-10 w-full sm:w-auto hover:bg-[#4050B5]">save</Button>
         </div>
