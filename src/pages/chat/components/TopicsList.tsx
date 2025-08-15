@@ -10,16 +10,10 @@ interface TopicsListProps {
   loading?: boolean;
 }
 
-export const TopicsList = ({
-  topics,
-  onTopicClick,
-  variant = 'compact',
-  loading = false
-}: TopicsListProps) => {
-  const { t } = useTranslations();
-  if (loading || topics.length === 0) {
-    return null;
-  }
+export const TopicsList = ({ topics, onTopicClick, variant = 'compact', loading = false }: TopicsListProps) => {
+  const { t, isEnglish } = useTranslations();
+
+  if (loading || topics.length === 0) return null;
 
   if (variant === 'prominent') {
     return (
@@ -37,7 +31,7 @@ export const TopicsList = ({
               onClick={() => onTopicClick(topic)}
             >
               <Icon name={topic.slug} size={20} className="mr-3" />
-              {topic.name.en}
+              {topic.name[isEnglish ? 'en' : 'pt']}
             </Button>
           ))}
         </div>
@@ -60,7 +54,7 @@ export const TopicsList = ({
             onClick={() => onTopicClick(topic)}
           >
             <Icon name={topic.slug} size={16} className="mr-2" />
-            {topic.name.en}
+            {topic.name[isEnglish ? 'en' : 'pt']}
           </Button>
         ))}
       </div>
