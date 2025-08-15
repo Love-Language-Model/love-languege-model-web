@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { usersService, User } from '@/services';
+import LoadingScreen from '@/components/LoadingScreen';
 
 interface AuthContextType {
   user: User | null;
@@ -140,7 +141,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {children}
+      {isLoading ? <LoadingScreen /> : children}
     </AuthContext.Provider>
   );
 };
