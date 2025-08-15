@@ -16,16 +16,16 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [agreeToTerms, setAgreeToTerms] = useState(false);
-  
+
   const { register, isLoading, error } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (password !== confirmPassword) {
       return;
     }
-    
+
     const success = await register(name, email, password);
     if (success) {
       // Redirecionar para login após registro bem-sucedido
@@ -110,8 +110,8 @@ const Signup = () => {
                 {error}
               </div>
             )}
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
               disabled={isLoading || !agreeToTerms || password !== confirmPassword}
             >
