@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useAuth } from '@/contexts/auth';
+import { useToast } from '@/hooks/use-toast';
 
 import { z } from 'zod';
 
@@ -26,6 +27,7 @@ export type ProfileFormData = z.infer<typeof profileSchema>;
 const Info = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { user, updateProfile } = useAuth();
+  const { toast } = useToast();
 
   const {
     register,
@@ -63,9 +65,27 @@ const Info = () => {
   const onSubmit = async (data: ProfileFormData) => {
     try {
       setIsLoading(true);
-      await updateProfile(data);
+      const success = await updateProfile(data);
+      
+      if (success) {
+        toast({
+          title: 'Profile updated successfully',
+          description: 'Your profile information has been saved.',
+        });
+      } else {
+        toast({
+          title: 'Failed to update profile',
+          description: 'Please try again later.',
+          variant: 'destructive',
+        });
+      }
     } catch (error) {
       console.error(error);
+      toast({
+        title: 'Error updating profile',
+        description: 'An unexpected error occurred. Please try again.',
+        variant: 'destructive',
+      });
     } finally {
       setIsLoading(false);
     }
@@ -73,6 +93,10 @@ const Info = () => {
 
   const handleCancel = () => {
     reset();
+    toast({
+      title: 'Changes discarded',
+      description: 'Your changes have been reset to the original values.',
+    });
   };
 
   const email = user?.identities?.find(identity => identity.type === 'email')?.value || '';
