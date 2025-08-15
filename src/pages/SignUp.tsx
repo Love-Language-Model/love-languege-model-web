@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Header from '@/components/Header';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { useApi } from '@/hooks/useApi';
-import { users } from '@/services';
+import { useAuth } from '@/hooks/use-auth';
 
 const Signup = () => {
-  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   
-  const { loading, error, execute } = useApi();
+  const { register, isLoading, error } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,16 +24,10 @@ const Signup = () => {
       return;
     }
     
-    const response = await execute(() => 
-      users.create({
-        name,
-        email,
-        password,
-      })
-    );
-    
-    if (response.data) {
-      navigate('/login');
+    const success = await register(name, email, password);
+    if (success) {
+      // Redirecionar para login após registro bem-sucedido
+      window.location.href = '/login';
     }
   };
 
@@ -119,9 +111,9 @@ const Signup = () => {
             <Button 
               type="submit" 
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-              disabled={loading || !agreeToTerms || password !== confirmPassword}
+              disabled={isLoading || !agreeToTerms || password !== confirmPassword}
             >
-              {loading ? 'Creating account...' : 'Create account'}
+              {isLoading ? 'Creating account...' : 'Create account'}
             </Button>
           </form>
           <div className="mt-6 text-center">
