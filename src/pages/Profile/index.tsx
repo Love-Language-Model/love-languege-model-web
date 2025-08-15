@@ -9,7 +9,7 @@ const Profile = () => {
   const isConversationsActive = location.pathname.includes('/conversations');
 
   return (
-    <main className="flex-1 pt-20 md:pt-24">
+    <main className="flex-1 pt-[75px] md:pt-20">
       <div className="max-w-5xl mx-auto w-full">
         <div className="md:hidden w-full bg-white/80 backdrop-blur-sm sticky top-[75px] z-40 border-b border-gray-100">
           <nav className="grid grid-cols-3 w-full">
@@ -42,7 +42,7 @@ const Profile = () => {
             </Link>
           </nav>
         </div>
-        <div className="flex px-4">
+        <div className="flex p-4">
           <aside className="w-64 pr-8 border-r border-gray-200 pt-2 hidden md:block sticky top-24 h-[calc(100vh-6rem)]">
             <nav className="flex flex-col gap-2">
               <Link to="/profile">
