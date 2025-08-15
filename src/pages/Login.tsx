@@ -1,35 +1,29 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import Header from '@/components/Header';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { useApi } from '@/hooks/useApi';
-import { users } from '@/services';
+import { useAuth } from '@/hooks/use-auth';
 
 const Login = () => {
-  const navigate = useNavigate();
+  const location = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   
-  const { loading, error, execute } = useApi();
+  const { login, isLoading, error } = useAuth();
+  
+  const from = location.state?.from?.pathname || '/';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    const response = await execute(() => 
-      users.authenticate({
-        username: email,
-        password,
-        persistent: rememberMe,
-      })
-    );
-    
-    if (response.data) {
-      navigate('/');
+    const success = await login(email, password, rememberMe);
+    if (success) {
+      // O hook useAuth já gerencia o redirecionamento
     }
   };
 
@@ -82,9 +76,9 @@ const Login = () => {
             <Button 
               type="submit" 
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-              disabled={loading}
+              disabled={isLoading}
             >
-              {loading ? 'Signing in...' : 'Sign in'}
+              {isLoading ? 'Signing in...' : 'Sign in'}
             </Button>
           </form>
           <div className="mt-6 text-center">
