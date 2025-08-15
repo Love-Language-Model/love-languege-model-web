@@ -7,8 +7,10 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useAuth } from '@/contexts/auth';
+import { useTranslations } from '@/hooks/use-translations';
 
 const Signup = () => {
+  const { t } = useTranslations();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,52 +38,52 @@ const Signup = () => {
       <Header showLoginButton={false} />
       <div className="flex-1 flex items-center justify-center pt-24">
         <div className="w-full max-w-md px-4">
-          <h1 className="text-3xl font-bold mb-8 text-center">Welcome back to the movement!</h1>
+          <h1 className="text-3xl font-bold mb-8 text-center">{t('auth.createAccount')}</h1>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="name">Name</Label>
+              <Label htmlFor="name">{t('auth.name')}</Label>
               <Input
                 id="name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Enter your name"
+                placeholder={t('auth.name')}
                 required
                 className="bg-black border-white/20 text-white placeholder:text-white/50"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t('auth.email')}</Label>
               <Input
                 id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
+                placeholder={t('auth.email')}
                 required
                 className="bg-black border-white/20 text-white placeholder:text-white/50"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t('auth.password')}</Label>
               <Input
                 id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Create a password"
+                placeholder={t('auth.password')}
                 required
                 className="bg-black border-white/20 text-white placeholder:text-white/50"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Label htmlFor="confirmPassword">{t('auth.confirmPassword')}</Label>
               <Input
                 id="confirmPassword"
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm your password"
+                placeholder={t('auth.confirmPassword')}
                 required
                 className="bg-black border-white/20 text-white placeholder:text-white/50"
               />
@@ -113,14 +115,14 @@ const Signup = () => {
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
               disabled={isLoading || !agreeToTerms || password !== confirmPassword}
             >
-              {isLoading ? 'Creating account...' : 'Create account'}
+              {isLoading ? t('common.loading') : t('auth.register')}
             </Button>
           </form>
           <div className="mt-6 text-center">
             <p className="text-sm text-white/70">
-              Already have an account?{' '}
+              {t('auth.alreadyHaveAccount')}{' '}
               <Link to="/login" className="text-white hover:underline">
-                Sign in
+                {t('auth.login')}
               </Link>
             </p>
           </div>
