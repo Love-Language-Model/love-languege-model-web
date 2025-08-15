@@ -1,10 +1,10 @@
 import api from './api';
-import { ApiResponse, Topic, TopicUpdateRequest } from './types';
+import { ApiResponse, Topic, TopicUpdateRequest, TopicsResponse } from './types';
 
 export const topicsService = {
-  async getAll(): Promise<ApiResponse<Topic[]>> {
+  async getAll(): Promise<ApiResponse<TopicsResponse>> {
     try {
-      const response = await api.get<Topic[]>('/topics');
+      const response = await api.get<TopicsResponse>('/topics');
       return { data: response.data };
     } catch (error: unknown) {
       return { error: (error as any)?.response?.data?.message || 'Failed to get topics' };
