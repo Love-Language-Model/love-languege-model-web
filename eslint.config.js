@@ -25,6 +25,7 @@ export default tseslint.config(
       ],
       '@typescript-eslint/no-unused-vars': 'off',
       'quotes': ['error', 'single'],
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   }
 );
