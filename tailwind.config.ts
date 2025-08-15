@@ -19,7 +19,7 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Lexend', 'sans-serif'],
+				sans: ['Noto Sans', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
