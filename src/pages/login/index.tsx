@@ -9,19 +9,22 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { useAuth } from '@/contexts/auth';
 
 const Login = () => {
-  const location = useLocation();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  
-  const { login, isLoading, error } = useAuth();
-  
+
+  const { login, error } = useAuth();
+
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const success = await login(email, password, rememberMe);
-    if (success) {
+    try {
+      setIsLoading(true);
+      e.preventDefault();
+      await login(email, password, rememberMe);
       navigate('/chat', { replace: true });
+    } catch {
+      setIsLoading(false);
     }
   };
 
@@ -71,8 +74,8 @@ const Login = () => {
                 {error}
               </div>
             )}
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
               disabled={isLoading}
             >
