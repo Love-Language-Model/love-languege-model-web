@@ -19,11 +19,11 @@ export const usersService = {
   async authenticate(authData: AuthRequest): Promise<ApiResponse<AuthResponse>> {
     try {
       const response = await api.post<AuthResponse>('/auth', authData);
-      
+
       if (response.data?.token) {
         localStorage.setItem('token', response.data.token);
       }
-      
+
       return { data: response.data };
     } catch (error: unknown) {
       return { error: (error as any)?.response?.data?.message || 'Authentication failed' };
