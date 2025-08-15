@@ -20,7 +20,7 @@ export const LanguageToggle = () => {
   };
 
   return (
-    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+    <DropdownMenu open={isOpen} onOpenChange={setIsOpen} modal={false}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm" className="flex items-center gap-2 px-3 py-2 h-auto">
           <svg width="36" height="21" viewBox="0 0 36 21" className="!w-8 !h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
