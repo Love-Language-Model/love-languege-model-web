@@ -1,12 +1,17 @@
+import { useTranslations } from '@/hooks/use-translations';
+
 interface ChatHeaderProps {
   title?: string;
 }
 
-export const ChatHeader = ({ title = 'Hi human, what does love mean to you?' }: ChatHeaderProps) => {
+export const ChatHeader = ({ title }: ChatHeaderProps) => {
+  const { t } = useTranslations();
+  
+  const defaultTitle = t('home.welcomeMessage');
   return (
     <div className="flex-shrink-0 p-8 text-center">
       <h1 className="text-2xl font-semibold text-gray-900 mb-2">
-        {title}
+        {title || defaultTitle}
       </h1>
     </div>
   );

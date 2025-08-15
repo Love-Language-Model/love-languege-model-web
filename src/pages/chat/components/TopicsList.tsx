@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/Icon';
 import { Topic } from '@/types/chat';
+import { useTranslations } from '@/hooks/use-translations';
 
 interface TopicsListProps {
   topics: Topic[];
@@ -15,6 +16,7 @@ export const TopicsList = ({
   variant = 'compact',
   loading = false
 }: TopicsListProps) => {
+  const { t } = useTranslations();
   if (loading || topics.length === 0) {
     return null;
   }
@@ -23,7 +25,7 @@ export const TopicsList = ({
     return (
       <div className="flex-1 p-6">
         <h2 className="text-lg font-medium text-gray-900 text-center mb-6">
-          Want to talk about a specific topic? Choose here
+          {t('home.topicPrompt')}
         </h2>
         <div className="flex flex-wrap justify-center gap-3">
           {topics.map(topic => (
@@ -46,7 +48,7 @@ export const TopicsList = ({
   return (
     <div className="flex-shrink-0 p-6">
       <h3 className="text-sm font-medium text-gray-700 mb-3">
-        Want to talk about a specific topic?
+        {t('home.topicPrompt')}
       </h3>
       <div className="flex flex-wrap gap-2">
         {topics.map(topic => (

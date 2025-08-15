@@ -2,6 +2,7 @@ import { ChatHeader } from './ChatHeader';
 import { MessageInput } from './MessageInput';
 import { TopicsList } from './TopicsList';
 import { Topic } from '@/types/chat';
+import { useTranslations } from '@/hooks/use-translations';
 
 interface EmptyStateProps {
   message: string;
@@ -24,6 +25,8 @@ export const EmptyState = ({
   onTopicClick,
   loading
 }: EmptyStateProps) => {
+  const { t } = useTranslations();
+  
   return (
     <>
       <ChatHeader />
@@ -34,7 +37,7 @@ export const EmptyState = ({
           publicMode={publicMode}
           setPublicMode={setPublicMode}
           onSendMessage={onSendMessage}
-          placeholder="There's no right or wrong, just love."
+          placeholder={t('chat.startTyping')}
         />
       </div>
       <TopicsList
