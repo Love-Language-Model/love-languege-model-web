@@ -13,4 +13,4 @@ const LanguageButton = ({ whiteBackground = false, onClick }: LanguageButtonProp
   );
 };
 
-export default LanguageButton; 
+export default LanguageButton;
