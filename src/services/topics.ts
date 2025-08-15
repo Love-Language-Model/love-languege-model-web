@@ -1,19 +1,40 @@
-import { apiService, ApiResponse, Topic, TopicUpdateRequest } from './api';
+import api from './api';
+import { ApiResponse, Topic, TopicUpdateRequest } from './types';
 
 export const topicsService = {
   async getAll(): Promise<ApiResponse<Topic[]>> {
-    return apiService.get<Topic[]>('/topics');
+    try {
+      const response = await api.get<Topic[]>('/topics');
+      return { data: response.data };
+    } catch (error: unknown) {
+      return { error: (error as any)?.response?.data?.message || 'Failed to get topics' };
+    }
   },
 
   async create(topicData: Omit<Topic, 'id'>): Promise<ApiResponse<Topic>> {
-    return apiService.post<Topic>('/topics', topicData);
+    try {
+      const response = await api.post<Topic>('/topics', topicData);
+      return { data: response.data };
+    } catch (error: unknown) {
+      return { error: (error as any)?.response?.data?.message || 'Failed to create topic' };
+    }
   },
 
   async getById(id: string): Promise<ApiResponse<Topic>> {
-    return apiService.get<Topic>(`/topics/${id}`);
+    try {
+      const response = await api.get<Topic>(`/topics/${id}`);
+      return { data: response.data };
+    } catch (error: unknown) {
+      return { error: (error as any)?.response?.data?.message || 'Failed to get topic' };
+    }
   },
 
   async update(id: string, topicData: TopicUpdateRequest): Promise<ApiResponse<Topic>> {
-    return apiService.put<Topic>(`/topics/${id}`, topicData);
+    try {
+      const response = await api.put<Topic>(`/topics/${id}`, topicData);
+      return { data: response.data };
+    } catch (error: unknown) {
+      return { error: (error as any)?.response?.data?.message || 'Failed to update topic' };
+    }
   }
 };
