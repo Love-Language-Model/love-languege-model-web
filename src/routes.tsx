@@ -1,13 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import Chat from '@/pages/Chat';
-import Index from '@/pages/Index';
-import Login from '@/pages/Login';
-import SignUp from '@/pages/SignUp';
-import Profile from '@/pages/Profile';
-import LoveTokens from '@/pages/Profile/LoveTokens';
-import Conversations from '@/pages/Profile/Conversations';
-import Info from '@/pages/Profile/Info';
+import Chat from '@/pages/chat';
+import Index from '@/pages/home';
+import Login from '@/pages/login';
+import SignUp from '@/pages/sign-up';
+import Profile from '@/pages/profile';
+import LoveTokens from '@/pages/profile/love-tokens';
+import Conversations from '@/pages/profile/conversations';
+import Info from '@/pages/profile/info';
 
 import AppLayout from '@/layouts/app';
 import ProtectedRoute from '@/components/ProtectedRoute';
