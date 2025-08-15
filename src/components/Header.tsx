@@ -50,7 +50,7 @@ const Header = ({ showLoginButton = true, whiteBackground = false, children }: H
   return (
     <>
       <header className={`fixed top-0 left-0 w-full p-4 z-50 min-h-[75px] flex justify-center items-center ${whiteBackground ? 'bg-white/80 backdrop-blur-sm' : 'bg-black/80 backdrop-blur-sm'}`}>
-        <div className="max-w-7xl w-full mx-auto flex items-center justify-between">
+        <div className="container w-full mx-auto flex items-center justify-between">
           <div className="flex items-center">
             <Logo whiteBackground={whiteBackground} />
           </div>
