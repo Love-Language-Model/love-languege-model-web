@@ -51,7 +51,9 @@ const Header = ({ showLoginButton = true, whiteBackground = false, children }: H
       <header className={`fixed top-0 left-0 w-full p-4 z-50 min-h-[75px] flex justify-center items-center ${whiteBackground ? 'bg-white/80 backdrop-blur-sm' : 'bg-black/80 backdrop-blur-sm'}`}>
         <div className="container w-full mx-auto flex items-center justify-between">
           <div className="flex items-center">
-            <Logo whiteBackground={whiteBackground} />
+            <Link to="/" className="flex items-center">
+              <Logo whiteBackground={whiteBackground} />
+            </Link>
           </div>
           <div className="hidden md:flex items-center gap-8">
             <Link to="/" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors`}>
