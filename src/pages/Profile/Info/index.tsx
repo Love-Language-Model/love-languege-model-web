@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Select } from '@/components/ui/select';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/auth';
 import { User } from '@/services';
 
 const Info = () => {
@@ -33,12 +33,6 @@ const Info = () => {
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-semibold text-gray-900">MY PROFILE</h1>
-      
-      {error && (
-        <div className="text-red-500 text-sm">
-          Error loading profile: {error}
-        </div>
-      )}
       
       {isLoading && !user ? (
         <div className="text-center py-8">Loading profile...</div>
