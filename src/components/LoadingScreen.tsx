@@ -5,7 +5,7 @@ import { useTranslations } from '@/hooks/use-translations';
 
 const LoadingScreen = () => {
   const { t } = useTranslations();
-  
+
   return (
     <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
       <div className="text-center space-y-6">
