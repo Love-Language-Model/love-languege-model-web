@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+
 import { SupportedLanguage } from '@/types/i18n';
 
 export const useTranslations = () => {

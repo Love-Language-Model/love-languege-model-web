@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { topicsService } from '@/services';
-import { Topic } from '@/types/chat';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { topicsService } from '@/services';
+import { Topic } from '@/types/chat';
 
 const TopicsList = () => {
   const [topics, setTopics] = useState<Topic[]>([]);

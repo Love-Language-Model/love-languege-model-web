@@ -1,16 +1,16 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import ProtectedRoute from '@/components/ProtectedRoute';
+import AppLayout from '@/layouts/app';
 import Chat from '@/pages/chat';
 import Index from '@/pages/home';
 import Login from '@/pages/login';
-import SignUp from '@/pages/sign-up';
 import Profile from '@/pages/profile';
-import LoveTokens from '@/pages/profile/love-tokens';
 import Conversations from '@/pages/profile/conversations';
 import Info from '@/pages/profile/info';
+import LoveTokens from '@/pages/profile/love-tokens';
+import SignUp from '@/pages/sign-up';
 
-import AppLayout from '@/layouts/app';
-import ProtectedRoute from '@/components/ProtectedRoute';
 
 export const router = createBrowserRouter([
   {

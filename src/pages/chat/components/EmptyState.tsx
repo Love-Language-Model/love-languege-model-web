@@ -1,8 +1,9 @@
 import { ChatHeader } from './ChatHeader';
 import { MessageInput } from './MessageInput';
 import { TopicsList } from './TopicsList';
-import { Topic } from '@/types/chat';
+
 import { useTranslations } from '@/hooks/use-translations';
+import { Topic } from '@/types/chat';
 
 interface EmptyStateProps {
   message: string;

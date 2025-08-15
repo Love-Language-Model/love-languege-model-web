@@ -1,7 +1,10 @@
-import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { topicsService } from '@/services';
+import { useState } from 'react';
+
 import { EmptyState, ChatState, Message, Topic } from './components';
+
+import { topicsService } from '@/services';
+
 
 const Chat = () => {
   const [message, setMessage] = useState<string>('');

@@ -1,4 +1,5 @@
-import { useToast } from '@/hooks/use-toast'
+import { CheckCircle, XCircle, AlertCircle, Info } from 'lucide-react'
+
 import {
   Toast,
   ToastClose,
@@ -7,7 +8,7 @@ import {
   ToastTitle,
   ToastViewport,
 } from '@/components/ui/toast'
-import { CheckCircle, XCircle, AlertCircle, Info } from 'lucide-react'
+import { useToast } from '@/hooks/use-toast'
 
 export function Toaster() {
   const { toasts } = useToast()
