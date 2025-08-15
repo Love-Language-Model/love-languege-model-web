@@ -8,12 +8,13 @@ import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import Loading from '@/components/ui/loading';
 import { topicsService } from '@/services';
+import { Icon } from '@/components/Icon';
 
 const Chat = () => {
   const [message, setMessage] = useState<string>('');
   const [publicMode, setPublicMode] = useState<boolean>(true);
 
-  const { data: topicsData, isLoading: loading, error } = useQuery({
+  const { data: topics = [], isLoading: loading } = useQuery({
     queryKey: ['topics'],
     queryFn: async () => {
       const response = await topicsService.getAll();
@@ -24,7 +25,7 @@ const Chat = () => {
     },
   });
 
-  const topics = topicsData || [];
+  console.log(topics);
 
   const handleSendMessage = () => {
     if (message.trim()) {
@@ -42,7 +43,6 @@ const Chat = () => {
               Hi human, what does love mean to you?
             </h1>
           </div>
-
           <div className="bg-black/5 backdrop-blur-sm rounded-lg p-6">
             <Textarea
               placeholder="There's no right or wrong, just love."
@@ -67,7 +67,6 @@ const Chat = () => {
               </div>
             </div>
           </div>
-
           <div className="space-y-4">
             <h2 className="text-black/80 text-center">
               Want to talk about a specific topic? Choose here
@@ -75,8 +74,6 @@ const Chat = () => {
             <div className="flex flex-wrap justify-center gap-2">
               {loading ? (
                 <Loading variant="dots" />
-              ) : error ? (
-                <div className="text-red-500">{error.message}</div>
               ) : (
                 topics.map(topic => (
                   <Button
@@ -84,7 +81,8 @@ const Chat = () => {
                     variant="outline"
                     className="bg-topic hover:bg-topic-hover text-black rounded-full"
                   >
-                    {topic.name.en} / {topic.name.pt}
+                    <Icon name={topic.slug} />
+                    {topic.name.en}
                   </Button>
                 ))
               )}
