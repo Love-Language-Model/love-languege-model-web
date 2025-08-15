@@ -49,7 +49,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   const login = async (email: string, password: string, persistent = false): Promise<boolean> => {
-    setIsLoading(true);
     setError(null);
 
     try {
@@ -70,8 +69,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     } catch (err) {
       setError('Login failed');
       return false;
-    } finally {
-      setIsLoading(false);
     }
   };
 
