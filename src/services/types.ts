@@ -4,12 +4,22 @@ export interface ApiResponse<T = any> {
   message?: string;
 }
 
+export interface Identity {
+  type: string;
+  value: string;
+  verified: boolean;
+}
+
 export interface User {
   id?: string;
   name: string;
-  email: string;
-  cellphone?: string;
-  password?: string;
+  birthDate?: string | null;
+  gender?: string | null;
+  about?: string | null;
+  residenceLocation?: string | null;
+  birthLocation?: string | null;
+  imageUrl?: string | null;
+  identities: Identity[];
 }
 
 export interface AuthRequest {
