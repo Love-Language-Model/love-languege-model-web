@@ -1,11 +1,12 @@
 import { useState } from 'react';
 
-import { Menu, X } from 'lucide-react';
+import { Menu, X, User, LogOut } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import Logo from '@/components/Logo';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/contexts/AuthContext';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { useAuth } from '@/contexts/auth';
 
 interface HeaderProps {
   showLoginButton?: boolean;
@@ -37,7 +38,7 @@ const getRandomColor = () => {
 };
 
 const Header = ({ showLoginButton = true, whiteBackground = false, children }: HeaderProps) => {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, logout } = useAuth();
   const [bgColor] = useState(getRandomColor());
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
@@ -68,12 +69,29 @@ const Header = ({ showLoginButton = true, whiteBackground = false, children }: H
               </Link>
             )}
             {isAuthenticated && (
-              <Link
-                to="/profile"
-                className={`flex items-center justify-center w-[42px] h-[42px] rounded-full ${bgColor} text-white font-medium text-lg`}
-              >
-                {userInitials}
-              </Link>
+              <DropdownMenu modal={false}>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className={`flex items-center justify-center w-[42px] h-[42px] rounded-full ${bgColor} text-white font-medium text-lg hover:opacity-80 transition-opacity`}
+                  >
+                    {userInitials}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuItem asChild className="cursor-pointer">
+                    <Link to="/profile" className="flex items-center">
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Profile</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={logout} className="text-red-600 cursor-pointer focus:text-red-600">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Log out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             )}
           </div>
           <button
