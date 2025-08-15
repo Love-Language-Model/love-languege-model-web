@@ -78,6 +78,6 @@ const LoveTokens = () => {
       </div>
     </div>
   );
-} 
+}
 
 export default LoveTokens;
