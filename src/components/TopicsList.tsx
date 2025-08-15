@@ -70,7 +70,7 @@ const TopicsList = () => {
           Create Topic
         </Button>
       </div>
-      
+
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {topics?.map((topic) => (
           <Card key={topic.id} className="bg-black border-white/20 text-white">
@@ -90,7 +90,7 @@ const TopicsList = () => {
           </Card>
         ))}
       </div>
-      
+
       {topics?.length === 0 && (
         <div className="text-center py-8 text-white/60">
           No topics found. Create your first topic!
