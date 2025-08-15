@@ -11,7 +11,6 @@ import Info from '@/pages/profile/info';
 import LoveTokens from '@/pages/profile/love-tokens';
 import SignUp from '@/pages/sign-up';
 
-
 export const router = createBrowserRouter([
   {
     path: '/',
