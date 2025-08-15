@@ -1,15 +1,33 @@
-import React, { useEffect } from 'react';
-import { useApi } from '@/hooks/useApi';
-import { topics, Topic } from '@/services';
+import React, { useEffect, useState } from 'react';
+import { topicsService, Topic } from '@/services';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const TopicsList = () => {
-  const { data: topics, loading, error, execute } = useApi<Topic[]>();
+  const [topics, setTopics] = useState<Topic[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const loadTopics = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await topicsService.getAll();
+      if (response.data) {
+        setTopics(response.data);
+      } else {
+        setError(response.error || 'Failed to load topics');
+      }
+    } catch (err) {
+      setError('Failed to load topics');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    execute(() => topics.getAll());
-  }, [execute]);
+    loadTopics();
+  }, []);
 
   const handleCreateTopic = async () => {
     const newTopic = {
@@ -23,8 +41,15 @@ const TopicsList = () => {
       },
     };
 
-    await execute(() => topics.create(newTopic));
-    execute(() => topics.getAll());
+    setLoading(true);
+    try {
+      await topicsService.create(newTopic);
+      await loadTopics();
+    } catch (err) {
+      setError('Failed to create topic');
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (loading) {
