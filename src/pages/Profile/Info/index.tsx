@@ -3,34 +3,26 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Select } from '@/components/ui/select';
-import { useApi } from '@/hooks/useApi';
-import { users, User } from '@/services';
+import { useAuth } from '@/hooks/use-auth';
+import { User } from '@/services';
 
 const Info = () => {
-  const [user, setUser] = useState<User | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<Partial<User>>({});
   
-  const { loading, error, execute } = useApi<User>();
+  const { user, updateProfile, isLoading, error } = useAuth();
 
   useEffect(() => {
-    loadUserData();
-  }, []);
-
-  const loadUserData = async () => {
-    const response = await execute(() => users.getCurrent());
-    if (response.data) {
-      setUser(response.data);
-      setFormData(response.data);
+    if (user) {
+      setFormData(user);
     }
-  };
+  }, [user]);
 
   const handleSave = async () => {
     if (!formData) return;
     
-    const response = await execute(() => users.updateCurrent(formData));
-    if (response.data) {
-      setUser(response.data);
+    const success = await updateProfile(formData);
+    if (success) {
       setIsEditing(false);
     }
   };
@@ -48,7 +40,7 @@ const Info = () => {
         </div>
       )}
       
-      {loading && !user ? (
+      {isLoading && !user ? (
         <div className="text-center py-8">Loading profile...</div>
       ) : (
         <form className="space-y-6">
@@ -156,10 +148,10 @@ const Info = () => {
               <Button 
                 type="button"
                 onClick={handleSave}
-                disabled={loading}
+                disabled={isLoading}
                 className="bg-[#6B6BCB] text-white rounded-full px-10 hover:bg-[#4050B5]"
               >
-                {loading ? 'Saving...' : 'Save'}
+                {isLoading ? 'Saving...' : 'Save'}
               </Button>
             </>
           ) : (
