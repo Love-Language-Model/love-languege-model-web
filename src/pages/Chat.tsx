@@ -3,11 +3,11 @@ import { useQuery } from '@tanstack/react-query';
 
 import { Send, Plus } from 'lucide-react';
 
-import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
-import { topicsService, Topic } from '@/services';
+import Loading from '@/components/ui/loading';
+import { topicsService } from '@/services';
 
 const Chat = () => {
   const [message, setMessage] = useState<string>('');
@@ -74,7 +74,7 @@ const Chat = () => {
             </h2>
             <div className="flex flex-wrap justify-center gap-2">
               {loading ? (
-                <div className="text-black/70">Loading topics...</div>
+                <Loading variant="dots" />
               ) : error ? (
                 <div className="text-red-500">{error.message}</div>
               ) : (
