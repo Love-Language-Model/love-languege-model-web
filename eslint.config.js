@@ -29,8 +29,9 @@ export default tseslint.config(
       '@typescript-eslint/no-empty-object-type': 'off',
       'quotes': ['error', 'single'],
       '@typescript-eslint/no-explicit-any': 'off',
-      
-      // Import organization rules
+      'no-multiple-empty-lines': ['error', { 'max': 1, 'maxEOF': 1 }],
+      'eol-last': ['error', 'always'],
+      'no-trailing-spaces': 'error',
       'import/order': [
         'error',
         {
