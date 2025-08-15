@@ -27,7 +27,7 @@ export const EmptyState = ({
   loading
 }: EmptyStateProps) => {
   const { t } = useTranslations();
-  
+
   return (
     <>
       <ChatHeader />
