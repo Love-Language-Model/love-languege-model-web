@@ -43,7 +43,7 @@ const Header = ({ showLoginButton = true, whiteBackground = false, children }: H
   const { t } = useTranslations();
   const [bgColor] = useState(getRandomColor());
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+
   const userInitials = user ? getInitials(user.name) : '';
 
   return (
