@@ -3,7 +3,7 @@ import Loading from '@/components/ui/loading';
 
 const LoadingScreen = () => {
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
       <div className="text-center space-y-6">
         <h2 className="text-white text-xl font-semibold">Welcome to the movement</h2>
         <Loading

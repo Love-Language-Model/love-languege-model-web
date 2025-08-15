@@ -1,5 +1,5 @@
 import { Heart } from 'lucide-react';
-import { Message } from './types';
+import { Message } from '@/types/chat';
 
 interface MessageBubbleProps {
   message: Message;

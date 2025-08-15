@@ -5,4 +5,4 @@ export { TopicsList } from './TopicsList';
 export { ChatHeader } from './ChatHeader';
 export { EmptyState } from './EmptyState';
 export { ChatState } from './ChatState';
-export type { Message, Topic } from './types';
+export type { Message, Topic } from '@/types/chat';

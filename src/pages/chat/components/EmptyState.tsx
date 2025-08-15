@@ -1,7 +1,7 @@
 import { ChatHeader } from './ChatHeader';
 import { MessageInput } from './MessageInput';
 import { TopicsList } from './TopicsList';
-import { Topic } from './types';
+import { Topic } from '@/types/chat';
 
 interface EmptyStateProps {
   message: string;

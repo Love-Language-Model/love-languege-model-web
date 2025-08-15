@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { usersService, User } from '@/services';
+import { usersService } from '@/services';
+import { User } from '@/types/user';
 import { useNavigate } from 'react-router';
 import LoadingScreen from '@/components/LoadingScreen';
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { topicsService, Topic } from '@/services';
+import { topicsService } from '@/services';
+import { Topic } from '@/types/chat';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 

@@ -1,5 +1,6 @@
 import api from './api';
-import { ApiResponse, Topic, TopicUpdateRequest, TopicsResponse } from './types';
+import { ApiResponse, TopicUpdateRequest, TopicsResponse } from '@/types/api';
+import { Topic } from '@/types/chat';
 
 export const topicsService = {
   async getAll(): Promise<ApiResponse<TopicsResponse>> {

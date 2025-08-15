@@ -1,5 +1,6 @@
 import api from './api';
-import { ApiResponse, User, AuthRequest, AuthResponse } from './types';
+import { ApiResponse, AuthRequest, AuthResponse } from '@/types/api';
+import { User } from '@/types/user';
 
 export const usersService = {
   async create(userData: { name: string; email: string; password: string }): Promise<ApiResponse<User>> {

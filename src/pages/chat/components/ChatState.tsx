@@ -1,7 +1,7 @@
 import { MessagesList } from './MessagesList';
 import { MessageInput } from './MessageInput';
 import { TopicsList } from './TopicsList';
-import { Message, Topic } from './types';
+import { Message, Topic } from '@/types/chat';
 
 interface ChatStateProps {
   messages: Message[];

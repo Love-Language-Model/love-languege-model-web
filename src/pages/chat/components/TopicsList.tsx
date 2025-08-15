@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/Icon';
-import { Topic } from './types';
+import { Topic } from '@/types/chat';
 
 interface TopicsListProps {
   topics: Topic[];
