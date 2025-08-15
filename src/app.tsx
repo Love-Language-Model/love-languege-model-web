@@ -7,7 +7,6 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { AuthProvider } from '@/contexts/auth';
 import { router } from '@/routes';
 
-
 const queryClient = new QueryClient();
 
 const App = () => (
