@@ -7,7 +7,7 @@ import { useTranslations } from '@/hooks/use-translations';
 
 const Index = () => {
   const { t } = useTranslations();
-  
+
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
       <Header />
