@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const loadUser = async () => {
     const token = localStorage.getItem('token');
-    
+
     if (!token) {
       setIsLoading(false);
       setIsAuthenticated(false);
