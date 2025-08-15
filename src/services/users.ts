@@ -2,9 +2,12 @@ import api from './api';
 import { ApiResponse, User, AuthRequest, AuthResponse } from './types';
 
 export const usersService = {
-  async create(userData: Omit<User, 'id'>): Promise<ApiResponse<User>> {
+  async create(userData: { name: string; email: string; password: string }): Promise<ApiResponse<User>> {
     try {
-      const response = await api.post<User>('/users', userData);
+      const response = await api.post<User>('/users', {
+        ...userData,
+        identities: [{ type: 'email', value: userData.email, verified: false }]
+      });
       return { data: response.data };
     } catch (error: unknown) {
       return { error: (error as any)?.response?.data?.message || 'Failed to create user' };
