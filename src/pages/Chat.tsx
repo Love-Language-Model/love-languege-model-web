@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 import { Send, Plus } from 'lucide-react';
 
@@ -6,34 +7,24 @@ import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
-
-interface Topic {
-  id: string;
-  name: string;
-  icon: string;
-}
-
-const topics: Topic[] = [
-  { id: '1', name: 'World peace', icon: '🕊️' },
-  { id: '2', name: 'Family', icon: '🏠' },
-  { id: '3', name: 'Cultural love', icon: '🌍' },
-  { id: '4', name: 'Business', icon: '📈' },
-  { id: '5', name: 'Self-love', icon: '❤️' },
-  { id: '6', name: 'Relationships', icon: '❤️' },
-  { id: '7', name: 'Spirituality', icon: '🧘' },
-  { id: '8', name: 'Communities', icon: '👥' },
-  { id: '9', name: 'Nature', icon: '🌳' },
-  { id: '10', name: 'Differences', icon: '🔄' },
-  { id: '11', name: 'Money', icon: '💰' },
-  { id: '12', name: 'Universal love', icon: '🌟' },
-  { id: '13', name: 'Friendship', icon: '👫' },
-  { id: '14', name: 'Love stories', icon: '📖' },
-  { id: '15', name: 'Technology', icon: '💻' },
-];
+import { topicsService, Topic } from '@/services';
 
 const Chat = () => {
   const [message, setMessage] = useState<string>('');
   const [publicMode, setPublicMode] = useState<boolean>(true);
+
+  const { data: topicsData, isLoading: loading, error } = useQuery({
+    queryKey: ['topics'],
+    queryFn: async () => {
+      const response = await topicsService.getAll();
+      if (response.data) {
+        return response.data.items;
+      }
+      throw new Error(response.error || 'Failed to load topics');
+    },
+  });
+
+  const topics = topicsData || [];
 
   const handleSendMessage = () => {
     if (message.trim()) {
@@ -82,16 +73,21 @@ const Chat = () => {
               Want to talk about a specific topic? Choose here
             </h2>
             <div className="flex flex-wrap justify-center gap-2">
-              {topics.map(topic => (
-                <Button
-                  key={topic.id}
-                  variant="outline"
-                  className="bg-topic hover:bg-topic-hover text-black rounded-full"
-                >
-                  <span className="mr-2">{topic.icon}</span>
-                  {topic.name}
-                </Button>
-              ))}
+              {loading ? (
+                <div className="text-black/70">Loading topics...</div>
+              ) : error ? (
+                <div className="text-red-500">{error.message}</div>
+              ) : (
+                topics.map(topic => (
+                  <Button
+                    key={topic.id}
+                    variant="outline"
+                    className="bg-topic hover:bg-topic-hover text-black rounded-full"
+                  >
+                    {topic.name.en} / {topic.name.pt}
+                  </Button>
+                ))
+              )}
             </div>
           </div>
         </div>
