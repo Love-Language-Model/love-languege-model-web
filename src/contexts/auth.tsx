@@ -108,7 +108,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const updateProfile = async (userData: Partial<User>): Promise<boolean> => {
-    setIsLoading(true);
     setError(null);
 
     try {
@@ -123,8 +122,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     } catch (err) {
       setError('Profile update failed');
       return false;
-    } finally {
-      setIsLoading(false);
     }
   };
 
