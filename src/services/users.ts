@@ -1,29 +1,49 @@
-import { apiService, ApiResponse, User, AuthRequest, AuthResponse } from './api';
+import api from './api';
+import { ApiResponse, User, AuthRequest, AuthResponse } from './types';
 
 export const usersService = {
   async create(userData: Omit<User, 'id'>): Promise<ApiResponse<User>> {
-    return apiService.post<User>('/users', userData);
+    try {
+      const response = await api.post<User>('/users', userData);
+      return { data: response.data };
+    } catch (error: unknown) {
+      return { error: (error as any)?.response?.data?.message || 'Failed to create user' };
+    }
   },
 
   async authenticate(authData: AuthRequest): Promise<ApiResponse<AuthResponse>> {
-    const response = await apiService.post<AuthResponse>('/auth', authData);
-    
-    if (response.data?.token) {
-      apiService.setToken(response.data.token);
+    try {
+      const response = await api.post<AuthResponse>('/auth', authData);
+      
+      if (response.data?.token) {
+        localStorage.setItem('token', response.data.token);
+      }
+      
+      return { data: response.data };
+    } catch (error: unknown) {
+      return { error: (error as any)?.response?.data?.message || 'Authentication failed' };
     }
-    
-    return response;
   },
 
   async getCurrent(): Promise<ApiResponse<User>> {
-    return apiService.get<User>('/me');
+    try {
+      const response = await api.get<User>('/me');
+      return { data: response.data };
+    } catch (error: unknown) {
+      return { error: (error as any)?.response?.data?.message || 'Failed to get user' };
+    }
   },
 
   async updateCurrent(userData: Partial<User>): Promise<ApiResponse<User>> {
-    return apiService.put<User>('/me', userData);
+    try {
+      const response = await api.put<User>('/me', userData);
+      return { data: response.data };
+    } catch (error: unknown) {
+      return { error: (error as any)?.response?.data?.message || 'Failed to update user' };
+    }
   },
 
   logout(): void {
-    apiService.clearToken();
+    localStorage.removeItem('token');
   }
 };
