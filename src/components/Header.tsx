@@ -5,17 +5,21 @@ import { Link } from 'react-router-dom';
 
 import Logo from '@/components/Logo';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface HeaderProps {
   showLoginButton?: boolean;
   whiteBackground?: boolean;
   children?: React.ReactNode;
-  isAuthenticated?: boolean;
 }
 
-const getRandomInitials = () => {
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  return letters[Math.floor(Math.random() * letters.length)] + letters[Math.floor(Math.random() * letters.length)];
+const getInitials = (name: string) => {
+  return name
+    .split(' ')
+    .map(word => word.charAt(0))
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
 };
 
 const getRandomColor = () => {
@@ -32,10 +36,12 @@ const getRandomColor = () => {
   return colors[Math.floor(Math.random() * colors.length)];
 };
 
-const Header = ({ showLoginButton = true, whiteBackground = false, children, isAuthenticated = false }: HeaderProps) => {
+const Header = ({ showLoginButton = true, whiteBackground = false, children }: HeaderProps) => {
+  const { isAuthenticated, user } = useAuth();
   const [bgColor] = useState(getRandomColor());
-  const [initials] = useState(getRandomInitials());
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  const userInitials = user ? getInitials(user.name) : '';
 
   return (
     <>
@@ -66,7 +72,7 @@ const Header = ({ showLoginButton = true, whiteBackground = false, children, isA
                 to="/profile"
                 className={`flex items-center justify-center w-[42px] h-[42px] rounded-full ${bgColor} text-white font-medium text-lg`}
               >
-                {initials}
+                {userInitials}
               </Link>
             )}
           </div>
