@@ -53,7 +53,7 @@ const Info = () => {
     try {
       setIsLoading(true);
       const success = await updateProfile(data);
-      
+
       if (success) {
         toast({
           title: 'Profile updated successfully',
@@ -209,4 +209,4 @@ const Info = () => {
   );
 };
 
-export default Info; 
+export default Info;
