@@ -27,9 +27,9 @@ const iconMap: Record<string, string> = {
   'dove': '/src/assets/icons/Dove.svg',
 };
 
-export const Icon: React.FC<IconProps> = ({ 
-  name, 
-  className = '', 
+export const Icon: React.FC<IconProps> = ({
+  name,
+  className = '',
   size,
   width,
   height,
@@ -37,7 +37,7 @@ export const Icon: React.FC<IconProps> = ({
   ...props
 }) => {
   const iconPath = iconMap[name];
-  
+
   if (!iconPath) {
     console.warn(`Icon "${name}" not found`);
     return null;
@@ -53,8 +53,8 @@ export const Icon: React.FC<IconProps> = ({
       className={className}
       width={finalWidth}
       height={finalHeight}
-      style={{ 
-        filter: color ? `brightness(0) saturate(100%) invert(1) sepia(1) saturate(10000%) hue-rotate(${color})` : undefined 
+      style={{
+        filter: color ? `brightness(0) saturate(100%) invert(1) sepia(1) saturate(10000%) hue-rotate(${color})` : undefined
       }}
       {...props}
     />
