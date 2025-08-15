@@ -28,6 +28,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [error, setError] = useState<string | null>(null);
 
   const loadUser = async () => {
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+      setIsLoading(false);
+      setIsAuthenticated(false);
+      return;
+    }
+
     try {
       const response = await usersService.getCurrent();
       if (response.data) {
@@ -36,10 +44,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       } else {
         setError(response.error || 'Failed to load user data');
         setIsAuthenticated(false);
+        localStorage.removeItem('token');
       }
     } catch (err) {
       setError('Failed to load user data');
       setIsAuthenticated(false);
+      localStorage.removeItem('token');
     } finally {
       setIsLoading(false);
     }
