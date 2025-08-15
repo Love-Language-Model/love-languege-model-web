@@ -1,6 +1,6 @@
 import { Eye, Heart, Star, UserPlus } from 'lucide-react';
 
-export function LoveTokens() {
+const LoveTokens = () => {
   return (
     <div className="space-y-6 w-full max-w-full overflow-hidden">
       <div>
@@ -79,3 +79,5 @@ export function LoveTokens() {
     </div>
   );
 } 
+
+export default LoveTokens;
