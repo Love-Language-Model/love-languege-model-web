@@ -1,37 +1,89 @@
+import { useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Select } from '@/components/ui/select';
+import { useApi } from '@/hooks/useApi';
+import { users, User } from '@/services';
 
 const Info = () => {
+  const [user, setUser] = useState<User | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState<Partial<User>>({});
+  
+  const { loading, error, execute } = useApi<User>();
+
+  useEffect(() => {
+    loadUserData();
+  }, []);
+
+  const loadUserData = async () => {
+    const response = await execute(() => users.getCurrent());
+    if (response.data) {
+      setUser(response.data);
+      setFormData(response.data);
+    }
+  };
+
+  const handleSave = async () => {
+    if (!formData) return;
+    
+    const response = await execute(() => users.updateCurrent(formData));
+    if (response.data) {
+      setUser(response.data);
+      setIsEditing(false);
+    }
+  };
+
+  const handleInputChange = (field: keyof User, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-semibold text-gray-900">MY PROFILE</h1>
-      <form className="space-y-6">
+      
+      {error && (
+        <div className="text-red-500 text-sm">
+          Error loading profile: {error}
+        </div>
+      )}
+      
+      {loading && !user ? (
+        <div className="text-center py-8">Loading profile...</div>
+      ) : (
+        <form className="space-y-6">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1">
+              <Label htmlFor="name">Name</Label>
+              <Input 
+                id="name" 
+                value={formData.name || ''} 
+                onChange={(e) => handleInputChange('name', e.target.value)}
+                readOnly={!isEditing}
+                className="bg-[#F6F6F6] border border-gray-200" 
+              />
+            </div>
+            <div className="flex-1">
+              <Label htmlFor="email">Email</Label>
+              <Input 
+                id="email" 
+                value={formData.email || ''} 
+                onChange={(e) => handleInputChange('email', e.target.value)}
+                readOnly={!isEditing}
+                className="bg-[#F6F6F6] border border-gray-200" 
+              />
+            </div>
+          </div>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
-            <Label htmlFor="name">Name</Label>
-            <Input id="name" value="Loranna" readOnly className="bg-[#F6F6F6] border border-gray-200" />
-          </div>
-          <div className="flex-1">
-            <Label htmlFor="surname">Surname</Label>
-            <Input id="surname" value="Scarpioni" readOnly className="bg-[#F6F6F6] border border-gray-200" />
-          </div>
-        </div>
-        <div className="flex flex-col gap-4">
-          <div className="flex-1">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" value="loranna@bilive.com" readOnly className="bg-[#F6F6F6] border border-gray-200" />
-          </div>
-        </div>
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="flex-1">
-            <Label htmlFor="doc">Document ID (optional)</Label>
-            <Input id="doc" value="" placeholder="" readOnly className="bg-[#F6F6F6] border border-gray-200" />
-          </div>
-          <div className="flex-1">
-            <Label htmlFor="phone">Phone number (optional)</Label>
-            <Input id="phone" value="+1 415 707 9105" readOnly className="bg-[#F6F6F6] border border-gray-200" />
+            <Label htmlFor="cellphone">Phone number (optional)</Label>
+            <Input 
+              id="cellphone" 
+              value={formData.cellphone || ''} 
+              onChange={(e) => handleInputChange('cellphone', e.target.value)}
+              readOnly={!isEditing}
+              className="bg-[#F6F6F6] border border-gray-200" 
+            />
           </div>
         </div>
         <div className="flex flex-col sm:flex-row items-center gap-6">
@@ -87,10 +139,41 @@ const Info = () => {
             <Button variant="outline" className="border-[#B5322A] text-[#B5322A] rounded-full px-6 w-full sm:w-auto">Delete my account</Button>
           </div>
         </div>
-        <div className="flex justify-end">
-          <Button className="bg-[#6B6BCB] text-white rounded-full px-10 w-full sm:w-auto hover:bg-[#4050B5]">save</Button>
+        <div className="flex justify-end gap-4">
+          {isEditing ? (
+            <>
+              <Button 
+                type="button"
+                variant="outline" 
+                onClick={() => {
+                  setIsEditing(false);
+                  setFormData(user || {});
+                }}
+                className="border-gray-300 text-gray-700 rounded-full px-6"
+              >
+                Cancel
+              </Button>
+              <Button 
+                type="button"
+                onClick={handleSave}
+                disabled={loading}
+                className="bg-[#6B6BCB] text-white rounded-full px-10 hover:bg-[#4050B5]"
+              >
+                {loading ? 'Saving...' : 'Save'}
+              </Button>
+            </>
+          ) : (
+            <Button 
+              type="button"
+              onClick={() => setIsEditing(true)}
+              className="bg-[#6B6BCB] text-white rounded-full px-10 hover:bg-[#4050B5]"
+            >
+              Edit Profile
+            </Button>
+          )}
         </div>
       </form>
+      )}
     </div>
   );
 };
