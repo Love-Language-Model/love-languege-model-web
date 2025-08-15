@@ -1,158 +1,197 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { Select } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useAuth } from '@/contexts/auth';
-import { User } from '@/services';
+
+import { z } from 'zod';
+
+const profileSchema = z.object({
+  name: z.string().min(1, 'Name is required').max(100, 'Name must be less than 100 characters'),
+  birthDate: z.string().nullable().optional(),
+  gender: z.string().nullable().optional(),
+  about: z.string().max(500, 'About must be less than 500 characters').nullable().optional(),
+  residenceLocation: z.string().max(100, 'Residence location must be less than 100 characters').nullable().optional(),
+  birthLocation: z.string().max(100, 'Birth location must be less than 100 characters').nullable().optional(),
+  imageUrl: z.string().url('Invalid URL format').nullable().optional(),
+});
+
+export type ProfileFormData = z.infer<typeof profileSchema>;
 
 const Info = () => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState<Partial<User>>({});
+  const [isLoading, setIsLoading] = useState(false);
+  const { user, updateProfile } = useAuth();
 
-  const { user, updateProfile, isLoading } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    control,
+    formState: { isValid },
+  } = useForm<ProfileFormData>({
+    resolver: zodResolver(profileSchema),
+    defaultValues: {
+      name: '',
+      birthDate: null,
+      gender: null,
+      about: null,
+      residenceLocation: null,
+      birthLocation: null,
+      imageUrl: null,
+    },
+  });
 
   useEffect(() => {
     if (user) {
-      setFormData(user);
+      reset({
+        name: user.name || '',
+        birthDate: user.birthDate || null,
+        gender: user.gender || null,
+        about: user.about || null,
+        residenceLocation: user.residenceLocation || null,
+        birthLocation: user.birthLocation || null,
+        imageUrl: user.imageUrl || null,
+      });
     }
-  }, [user]);
+  }, [user, reset]);
 
-  const handleSave = async () => {
-    if (!formData) return;
-
-    const success = await updateProfile(formData);
-    if (success) {
-      setIsEditing(false);
+  const onSubmit = async (data: ProfileFormData) => {
+    try {
+      setIsLoading(true);
+      await updateProfile(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const handleInputChange = (field: keyof User, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+  const handleCancel = () => {
+    reset();
   };
+
+  const email = user?.identities?.find(identity => identity.type === 'email')?.value || '';
+
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-semibold text-gray-900">MY PROFILE</h1>
-      <form className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
-            <Label htmlFor="name">Name</Label>
+            <Label htmlFor="name" className="flex items-center gap-2 mb-4">
+              Name*
+            </Label>
             <Input
               id="name"
-              value={formData.name || ''}
-              onChange={(e) => handleInputChange('name', e.target.value)}
-              readOnly={!isEditing}
+              {...register('name')}
               className="bg-[#F6F6F6] border border-gray-200"
             />
           </div>
           <div className="flex-1">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email" className="flex items-center gap-2 mb-4">
+              Email
+            </Label>
             <Input
               id="email"
-              value={formData.email || ''}
-              onChange={(e) => handleInputChange('email', e.target.value)}
-              readOnly={!isEditing}
-              className="bg-[#F6F6F6] border border-gray-200"
+              readOnly
+              disabled
+              value={email}
+              className="bg-gray-100 border border-gray-200 cursor-not-allowed pointer-events-none"
             />
           </div>
         </div>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
-            <Label htmlFor="cellphone">Phone number (optional)</Label>
+            <Label htmlFor="birthDate" className="flex items-center gap-2 mb-4">
+              Birth Date
+            </Label>
             <Input
-              id="cellphone"
-              value={formData.cellphone || ''}
-              onChange={(e) => handleInputChange('cellphone', e.target.value)}
-              readOnly={!isEditing}
+              id="birthDate"
+              type="date"
+              {...register('birthDate')}
+              className="bg-[#F6F6F6] border border-gray-200"
+            />
+          </div>
+          <div className="flex-1">
+            <Label htmlFor="gender" className="flex items-center gap-2 mb-4">
+              Gender
+            </Label>
+            <Controller
+              name="gender"
+              control={control}
+              render={({ field }) => (
+                <Select onValueChange={field.onChange} value={field.value || ''}>
+                  <SelectTrigger className="bg-[#F6F6F6] border border-gray-200">
+                    <SelectValue placeholder="Select gender" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="male">Male</SelectItem>
+                    <SelectItem value="female">Female</SelectItem>
+                    <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
+                  </SelectContent>
+                </Select>
+              )}
+            />
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex-1">
+            <Label htmlFor="residenceLocation" className="flex items-center gap-2 mb-4">
+              Residence Location
+            </Label>
+            <Input
+              id="residenceLocation"
+              placeholder="City, Country"
+              {...register('residenceLocation')}
+              className="bg-[#F6F6F6] border border-gray-200"
+            />
+          </div>
+          <div className="flex-1">
+            <Label htmlFor="birthLocation" className="flex items-center gap-2 mb-4">
+              Birth Location
+            </Label>
+            <Input
+              id="birthLocation"
+              placeholder="City, Country"
+              {...register('birthLocation')}
               className="bg-[#F6F6F6] border border-gray-200"
             />
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row items-center gap-6">
-          <div>
-            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile" className="w-20 h-20 rounded-full object-cover mt-2" />
-          </div>
-          <div className="flex flex-col gap-2 mt-6 sm:mt-0">
-            <Button className="bg-[#6B6BCB] text-white rounded-full px-6 hover:bg-[#4050B5]">upload a new picture</Button>
-            <Button variant="outline" className="border-[#6B6BCB] text-[#6B6BCB] rounded-full px-6">delete</Button>
-          </div>
-        </div>
-        <hr className="my-6 border-gray-200" />
         <div>
-          <Label>ABOUT ME (optional)</Label>
-          <p className="text-xs text-gray-500 mb-2">Tell us about yourself—whatever you'd like to share. This information is private and helps us understand love through your unique perspective and life experiences</p>
-          <textarea
-            className="w-full min-h-[100px] bg-[#F6F6F6] border border-gray-200 rounded-md p-2 text-sm"
-            placeholder="I'm an engineer and love traveling..."
-            defaultValue="I'm an engineer and love traveling..."
-            readOnly
+          <Label htmlFor="about" className="flex items-center gap-2 mb-4">
+            About
+          </Label>
+          <Textarea
+            id="about"
+            placeholder="Tell us about yourself..."
+            rows={4}
+            {...register('about')}
+            className="bg-[#F6F6F6] border border-gray-200"
           />
         </div>
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="flex-1">
-            <Label>Date of birth</Label>
-            <Input value="01/08/1990" readOnly className="bg-[#F6F6F6] border border-gray-200" />
-          </div>
-          <div className="flex-1">
-            <Label>Gender</Label>
-            <Input value="Female" readOnly className="bg-[#F6F6F6] border border-gray-200" />
-          </div>
-        </div>
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="flex-1">
-            <Label>Place of residency</Label>
-            <Select defaultValue="San Francisco, CA, US" disabled>
-              <option>San Francisco, CA, US</option>
-            </Select>
-          </div>
-          <div className="flex-1">
-            <Label>Place of birth</Label>
-            <Select defaultValue="Salvador, BA, Brazil" disabled>
-              <option>Salvador, BA, Brazil</option>
-            </Select>
-          </div>
-        </div>
-        <hr className="my-6 border-gray-200" />
-        <div>
-          <Label>Password</Label>
-          <div className="flex flex-col sm:flex-row items-center gap-4 mt-1">
-            <Input type="password" value="123456" readOnly className="w-full sm:w-40 bg-[#F6F6F6] border border-gray-200" />
-            <Button className="bg-[#6B6BCB] text-white rounded-full px-6 w-full sm:w-auto hover:bg-[#4050B5]">edit</Button>
-            <Button variant="outline" className="border-[#B5322A] text-[#B5322A] rounded-full px-6 w-full sm:w-auto">Delete my account</Button>
-          </div>
-        </div>
+
         <div className="flex justify-end gap-4">
-          {isEditing ? (
-            <>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => {
-                  setIsEditing(false);
-                  setFormData(user || {});
-                }}
-                className="border-gray-300 text-gray-700 rounded-full px-6"
-              >
-                Cancel
-              </Button>
-              <Button
-                type="button"
-                onClick={handleSave}
-                disabled={isLoading}
-                className="bg-[#6B6BCB] text-white rounded-full px-10 hover:bg-[#4050B5]"
-              >
-                {isLoading ? 'Saving...' : 'Save'}
-              </Button>
-            </>
-          ) : (
-            <Button
-              type="button"
-              onClick={() => setIsEditing(true)}
-              className="bg-[#6B6BCB] text-white rounded-full px-10 hover:bg-[#4050B5]"
-            >
-              Edit Profile
-            </Button>
-          )}
+          <Button
+            type="button"
+            variant="outline"
+            onClick={handleCancel}
+            className="rounded-full px-10"
+          >
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            disabled={isLoading || !isValid}
+            className="bg-[#6B6BCB] text-white rounded-full px-10 hover:bg-[#4050B5] disabled:opacity-50"
+          >
+            {isLoading ? 'Saving...' : 'Save Changes'}
+          </Button>
         </div>
       </form>
     </div>
