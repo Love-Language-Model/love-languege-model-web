@@ -1,23 +1,42 @@
 import React, { useState } from 'react';
-
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Header from '@/components/Header';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { useApi } from '@/hooks/useApi';
+import { users } from '@/services';
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [agreeToTerms, setAgreeToTerms] = useState(false);
+  
+  const { loading, error, execute } = useApi();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ name, email, password, confirmPassword, agreeToTerms });
+    
+    if (password !== confirmPassword) {
+      return;
+    }
+    
+    const response = await execute(() => 
+      users.create({
+        name,
+        email,
+        password,
+      })
+    );
+    
+    if (response.data) {
+      navigate('/login');
+    }
   };
 
   return (
@@ -92,8 +111,17 @@ const Signup = () => {
                 </Link>
               </Label>
             </div>
-            <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-              Create account
+            {error && (
+              <div className="text-red-500 text-sm text-center">
+                {error}
+              </div>
+            )}
+            <Button 
+              type="submit" 
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+              disabled={loading || !agreeToTerms || password !== confirmPassword}
+            >
+              {loading ? 'Creating account...' : 'Create account'}
             </Button>
           </form>
           <div className="mt-6 text-center">
