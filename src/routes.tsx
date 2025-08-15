@@ -10,6 +10,7 @@ import Conversations from '@/pages/Profile/Conversations';
 import Info from '@/pages/Profile/Info';
 
 import AppLayout from '@/layouts/app';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
 export const router = createBrowserRouter([
   {
@@ -34,7 +35,11 @@ export const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: <Profile />,
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
         children: [
           {
             path: '',
