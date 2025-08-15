@@ -33,6 +33,12 @@ export interface Topic {
     en: string;
     pt?: string;
   };
+  slug?: string;
+}
+
+export interface TopicsResponse {
+  items: Topic[];
+  hasMore: boolean;
 }
 
 export interface TopicUpdateRequest {
