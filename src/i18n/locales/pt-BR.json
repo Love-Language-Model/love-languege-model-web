@@ -1,5 +1,6 @@
 {
   "common": {
+    "loadingScreen": "Bem-vindo ao movimento",
     "loading": "Carregando...",
     "error": "Erro",
     "success": "Sucesso",
