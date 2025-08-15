@@ -9,8 +9,8 @@ import { User } from '@/services';
 const Info = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<Partial<User>>({});
-  
-  const { user, updateProfile, isLoading, error } = useAuth();
+
+  const { user, updateProfile, isLoading } = useAuth();
 
   useEffect(() => {
     if (user) {
@@ -20,7 +20,7 @@ const Info = () => {
 
   const handleSave = async () => {
     if (!formData) return;
-    
+
     const success = await updateProfile(formData);
     if (success) {
       setIsEditing(false);
@@ -33,42 +33,38 @@ const Info = () => {
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-semibold text-gray-900">MY PROFILE</h1>
-      
-      {isLoading && !user ? (
-        <div className="text-center py-8">Loading profile...</div>
-      ) : (
-        <form className="space-y-6">
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1">
-              <Label htmlFor="name">Name</Label>
-              <Input 
-                id="name" 
-                value={formData.name || ''} 
-                onChange={(e) => handleInputChange('name', e.target.value)}
-                readOnly={!isEditing}
-                className="bg-[#F6F6F6] border border-gray-200" 
-              />
-            </div>
-            <div className="flex-1">
-              <Label htmlFor="email">Email</Label>
-              <Input 
-                id="email" 
-                value={formData.email || ''} 
-                onChange={(e) => handleInputChange('email', e.target.value)}
-                readOnly={!isEditing}
-                className="bg-[#F6F6F6] border border-gray-200" 
-              />
-            </div>
+      <form className="space-y-6">
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex-1">
+            <Label htmlFor="name">Name</Label>
+            <Input
+              id="name"
+              value={formData.name || ''}
+              onChange={(e) => handleInputChange('name', e.target.value)}
+              readOnly={!isEditing}
+              className="bg-[#F6F6F6] border border-gray-200"
+            />
           </div>
+          <div className="flex-1">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              value={formData.email || ''}
+              onChange={(e) => handleInputChange('email', e.target.value)}
+              readOnly={!isEditing}
+              className="bg-[#F6F6F6] border border-gray-200"
+            />
+          </div>
+        </div>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
             <Label htmlFor="cellphone">Phone number (optional)</Label>
-            <Input 
-              id="cellphone" 
-              value={formData.cellphone || ''} 
+            <Input
+              id="cellphone"
+              value={formData.cellphone || ''}
               onChange={(e) => handleInputChange('cellphone', e.target.value)}
               readOnly={!isEditing}
-              className="bg-[#F6F6F6] border border-gray-200" 
+              className="bg-[#F6F6F6] border border-gray-200"
             />
           </div>
         </div>
@@ -128,9 +124,9 @@ const Info = () => {
         <div className="flex justify-end gap-4">
           {isEditing ? (
             <>
-              <Button 
+              <Button
                 type="button"
-                variant="outline" 
+                variant="outline"
                 onClick={() => {
                   setIsEditing(false);
                   setFormData(user || {});
@@ -139,7 +135,7 @@ const Info = () => {
               >
                 Cancel
               </Button>
-              <Button 
+              <Button
                 type="button"
                 onClick={handleSave}
                 disabled={isLoading}
@@ -149,7 +145,7 @@ const Info = () => {
               </Button>
             </>
           ) : (
-            <Button 
+            <Button
               type="button"
               onClick={() => setIsEditing(true)}
               className="bg-[#6B6BCB] text-white rounded-full px-10 hover:bg-[#4050B5]"
@@ -159,7 +155,6 @@ const Info = () => {
           )}
         </div>
       </form>
-      )}
     </div>
   );
 };
