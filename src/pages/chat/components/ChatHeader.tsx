@@ -6,7 +6,7 @@ interface ChatHeaderProps {
 
 export const ChatHeader = ({ title }: ChatHeaderProps) => {
   const { t } = useTranslations();
-  
+
   const defaultTitle = t('home.welcomeMessage');
   return (
     <div className="flex-shrink-0 p-8 text-center">
