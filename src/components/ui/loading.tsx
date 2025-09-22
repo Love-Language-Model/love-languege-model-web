@@ -21,10 +21,10 @@ const Loading = ({ size = 'md', variant = 'spinner', className, text }: LoadingP
   );
 
   const Dots = () => (
-    <div className="flex space-x-1">
-      <div className="w-2 h-2 bg-current rounded-full animate-bounce" />
-      <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
-      <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+    <div className="flex space-x-2">
+      <div className="w-3 h-3 bg-current rounded-full animate-bounce" />
+      <div className="w-3 h-3 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
+      <div className="w-3 h-3 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
     </div>
   );
 
