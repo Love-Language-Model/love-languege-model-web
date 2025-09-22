@@ -11,6 +11,7 @@ interface MessageInputProps {
   setPublicMode: (mode: boolean) => void;
   onSendMessage: () => void;
   placeholder?: string;
+  isSending?: boolean;
 }
 
 export const MessageInput = ({
@@ -19,7 +20,8 @@ export const MessageInput = ({
   publicMode,
   setPublicMode,
   onSendMessage,
-  placeholder = 'Type your message...'
+  placeholder = 'Type your message...',
+  isSending = false
 }: MessageInputProps) => {
   const { t } = useTranslations();
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -54,10 +56,14 @@ export const MessageInput = ({
             variant="ghost"
             size="sm"
             onClick={onSendMessage}
-            disabled={!message.trim()}
+            disabled={!message.trim() || isSending}
             className="text-gray-500 hover:text-gray-700"
           >
-            <Send className="h-4 w-4" />
+            {isSending ? (
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-500"></div>
+            ) : (
+              <Send className="h-4 w-4" />
+            )}
           </Button>
         </div>
       </div>

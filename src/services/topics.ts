@@ -7,7 +7,7 @@ export const topicsService = {
   async getAll(): Promise<ApiResponse<TopicsResponse>> {
     try {
       const response = await api.get<TopicsResponse>('/topics');
-      return { data: response.data };
+      return response;
     } catch (error: unknown) {
       return { error: (error as any)?.response?.data?.message || 'Failed to get topics' };
     }

@@ -33,6 +33,10 @@ export const router = createBrowserRouter([
         element: <Chat />,
       },
       {
+        path: 'chat/:conversationId',
+        element: <Chat />,
+      },
+      {
         path: 'profile',
         element: (
           <ProtectedRoute>

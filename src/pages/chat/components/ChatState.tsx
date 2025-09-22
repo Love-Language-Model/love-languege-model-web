@@ -14,6 +14,7 @@ interface ChatStateProps {
   topics: Topic[];
   onTopicClick: (topic: Topic) => void;
   loading: boolean;
+  isSending?: boolean;
 }
 
 export const ChatState = ({
@@ -25,7 +26,8 @@ export const ChatState = ({
   onSendMessage,
   topics,
   onTopicClick,
-  loading
+  loading,
+  isSending = false
 }: ChatStateProps) => {
   return (
     <>
@@ -43,6 +45,7 @@ export const ChatState = ({
           publicMode={publicMode}
           setPublicMode={setPublicMode}
           onSendMessage={onSendMessage}
+          isSending={isSending}
         />
       </div>
     </>

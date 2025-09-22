@@ -22,7 +22,7 @@ export const TopicsList = ({ topics, onTopicClick, variant = 'compact', loading 
           {t('home.topicPrompt')}
         </h2>
         <div className="flex flex-wrap justify-center gap-3">
-          {topics.map(topic => (
+          {topics?.map(topic => (
             <Button
               key={topic.id}
               variant="outline"
@@ -45,7 +45,7 @@ export const TopicsList = ({ topics, onTopicClick, variant = 'compact', loading 
         {t('home.topicPrompt')}
       </h3>
       <div className="flex flex-wrap gap-2">
-        {topics.map(topic => (
+        {topics?.map(topic => (
           <Button
             key={topic.id}
             variant="outline"
