@@ -31,7 +31,7 @@ export const ChatState = ({
 }: ChatStateProps) => {
   return (
     <>
-      <MessagesList messages={messages} />
+      <MessagesList messages={messages} isSending={isSending} />
       <TopicsList
         topics={topics}
         onTopicClick={onTopicClick}
