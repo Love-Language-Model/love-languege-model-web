@@ -11,10 +11,10 @@ interface LoadingProps {
 
 const Loading = ({ size = 'md', variant = 'spinner', className, text }: LoadingProps) => {
   const sizeClasses = {
-    xs: 'h-2 w-2',
-    sm: 'h-4 w-4',
-    md: 'h-8 w-8',
-    lg: 'h-12 w-12'
+    xs: 'h-1 w-1',
+    sm: 'h-2 w-2',
+    md: 'h-3 w-3',
+    lg: 'h-4 w-4'
   };
 
   const Spinner = () => (

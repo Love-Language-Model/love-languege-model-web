@@ -38,7 +38,7 @@ export const MessagesList = ({ messages, isSending = false }: MessagesListProps)
             <div className="px-4 py-2 rounded-lg bg-gray-100 text-gray-900">
               <Loading
                 variant="dots"
-                size="xs"
+                size="md"
                 className="text-gray-500"
               />
             </div>
