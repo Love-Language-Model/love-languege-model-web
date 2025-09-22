@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import { EmptyState, ChatState, Message, Topic } from './components';
 
+import Loading from '@/components/ui/loading';
 import { topicsService, conversationsService } from '@/services';
 import { Conversation } from '@/types/chat';
 
@@ -186,12 +187,12 @@ const Chat = () => {
         <div className="w-full container flex flex-col max-h-[calc(100dvh-150px)]">
           {isLoading ? (
             <div className="flex items-center justify-center h-64">
-              <div className="text-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#4050B5] mx-auto mb-4"></div>
-                <p className="text-gray-500">
-                  {hasConversationId ? 'Loading conversation and messages...' : 'Loading topics...'}
-                </p>
-              </div>
+              <Loading
+                variant="dots"
+                size="sm"
+                className="text-[#4050B5]"
+                text={hasConversationId ? 'Loading conversation and messages...' : 'Loading topics...'}
+              />
             </div>
           ) : messagesError ? (
             <div className="flex items-center justify-center h-64">
