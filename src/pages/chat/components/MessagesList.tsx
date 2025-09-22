@@ -1,8 +1,9 @@
+import { Heart } from 'lucide-react';
 import { useRef, useEffect } from 'react';
 
 import { MessageBubble } from './MessageBubble';
-import Loading from '@/components/ui/loading';
 
+import Loading from '@/components/ui/loading';
 import { Message } from '@/types/chat';
 
 interface MessagesListProps {
@@ -26,18 +27,18 @@ export const MessagesList = ({ messages, isSending = false }: MessagesListProps)
       {messages.map((msg) => (
         <MessageBubble key={msg.id} message={msg} />
       ))}
-      {isSending && (
+      {!isSending && (
         <div className="flex justify-start">
           <div className="flex max-w-[80%] flex-row">
             <div className="flex-shrink-0 mr-3">
               <div className="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center">
-                <div className="w-4 h-4 text-pink-500">💖</div>
+                <Heart className="w-4 h-4 text-pink-500" />
               </div>
             </div>
             <div className="px-4 py-2 rounded-lg bg-gray-100 text-gray-900">
               <Loading
                 variant="dots"
-                size="sm"
+                size="xs"
                 className="text-gray-500"
               />
             </div>

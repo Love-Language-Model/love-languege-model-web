@@ -3,7 +3,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 
 interface LoadingProps {
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   variant?: 'spinner' | 'dots' | 'pulse';
   className?: string;
   text?: string;
@@ -11,6 +11,7 @@ interface LoadingProps {
 
 const Loading = ({ size = 'md', variant = 'spinner', className, text }: LoadingProps) => {
   const sizeClasses = {
+    xs: 'h-2 w-2',
     sm: 'h-4 w-4',
     md: 'h-8 w-8',
     lg: 'h-12 w-12'
@@ -22,9 +23,9 @@ const Loading = ({ size = 'md', variant = 'spinner', className, text }: LoadingP
 
   const Dots = () => (
     <div className="flex space-x-2">
-      <div className="w-3 h-3 bg-current rounded-full animate-bounce" />
-      <div className="w-3 h-3 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
-      <div className="w-3 h-3 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+      <div className={cn('bg-current rounded-full animate-bounce', sizeClasses[size])} />
+      <div className={cn('bg-current rounded-full animate-bounce', sizeClasses[size])} style={{ animationDelay: '0.1s' }} />
+      <div className={cn('bg-current rounded-full animate-bounce', sizeClasses[size])} style={{ animationDelay: '0.2s' }} />
     </div>
   );
 
