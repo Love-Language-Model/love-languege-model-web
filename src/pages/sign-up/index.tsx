@@ -28,7 +28,6 @@ const Signup = () => {
 
     const success = await register(name, email, password);
     if (success) {
-      // Redirecionar para login após registro bem-sucedido
       window.location.href = '/login';
     }
   };

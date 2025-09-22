@@ -73,7 +73,6 @@ const Chat = () => {
     onSuccess: (response, variables) => {
       console.log('Message sent successfully:', response);
 
-      // Converte a resposta do agente para o formato local
       const aiMessage: Message = {
         id: response.outMessage.id,
         content: response.outMessage.content,
@@ -83,7 +82,6 @@ const Chat = () => {
         role: response.outMessage.role,
       };
 
-      // Adiciona apenas a resposta do agente (mensagem do usuário já foi adicionada otimisticamente)
       setMessages(prev => [...prev, aiMessage]);
 
       queryClient.invalidateQueries({ queryKey: ['messages', variables.conversationId] });
@@ -91,9 +89,7 @@ const Chat = () => {
     },
     onError: (error, variables) => {
       console.error('Failed to send message:', error);
-      // Remove a mensagem otimista em caso de erro (busca por conteúdo e não é AI)
       setMessages(prev => prev.filter(msg => !(msg.content === variables.content && !msg.isAI && msg.id.startsWith('temp-'))));
-      // Restaura a mensagem no campo de texto
       setMessage(variables.content);
     },
   });
@@ -103,7 +99,6 @@ const Chat = () => {
       const messageContent = message;
       setMessage(''); // Limpa o campo imediatamente
 
-      // Adiciona mensagem do usuário imediatamente (atualização otimista)
       const userMessage: Message = {
         id: `temp-${Date.now()}`, // ID temporário
         content: messageContent,
@@ -121,19 +116,16 @@ const Chat = () => {
           content: messageContent,
         });
       } else {
-        // Se não há conversa, cria uma nova automaticamente
         console.log('No conversation found, creating new one automatically');
         const defaultTopicId = topics.length > 0 ? topics[0].id : '';
         createConversationMutation.mutate({ topicId: defaultTopicId || '' }, {
           onSuccess: (newConversation) => {
             console.log('Conversation created automatically:', newConversation);
-            // Atualiza a mensagem otimista com o ID real da conversa
             setMessages(prev => prev.map(msg =>
               msg.id === userMessage.id
                 ? { ...msg, conversationId: newConversation.id }
                 : msg
             ));
-            // Envia a mensagem para a nova conversa
             sendMessageMutation.mutate({
               conversationId: newConversation.id,
               content: messageContent,
@@ -141,9 +133,7 @@ const Chat = () => {
           },
           onError: (error) => {
             console.error('Failed to create conversation:', error);
-            // Remove a mensagem otimista se não conseguir criar conversa
             setMessages(prev => prev.filter(msg => msg.id !== userMessage.id));
-            // Restaura a mensagem no campo de texto
             setMessage(messageContent);
           }
         });
@@ -152,18 +142,38 @@ const Chat = () => {
   };
 
   const handleTopicClick = async (topic: Topic) => {
-    if (!currentConversation) {
-      createConversationMutation.mutate({ topicId: topic.id! });
-    }
+    const topicMessageContent = `I want to talk about: ${topic.name.en}`;
 
-    const topicMessage: Message = {
-      id: Date.now().toString(),
-      content: `I want to talk about: ${topic.name.en}`,
-      isAI: false,
-      timestamp: new Date(),
-      conversationId: currentConversation?.id,
-    };
-    setMessages(prev => [...prev, topicMessage]);
+    if (!currentConversation && !conversationId) {
+      createConversationMutation.mutate({ topicId: topic.id! });
+
+      const topicMessage: Message = {
+        id: Date.now().toString(),
+        content: topicMessageContent,
+        isAI: false,
+        timestamp: new Date(),
+        conversationId: currentConversation?.id,
+      };
+      setMessages(prev => [...prev, topicMessage]);
+    } else {
+      const targetConversationId = currentConversation?.id || conversationId;
+      if (targetConversationId) {
+        const topicMessage: Message = {
+          id: `temp-${Date.now()}`,
+          content: topicMessageContent,
+          isAI: false,
+          timestamp: new Date(),
+          conversationId: targetConversationId,
+        };
+        setMessages(prev => [...prev, topicMessage]);
+
+        console.log('Sending topic message to existing conversation:', targetConversationId, topicMessageContent);
+        sendMessageMutation.mutate({
+          conversationId: targetConversationId,
+          content: topicMessageContent,
+        });
+      }
+    }
   };
 
   const isLoading = loading || conversationLoading || messagesLoading;
