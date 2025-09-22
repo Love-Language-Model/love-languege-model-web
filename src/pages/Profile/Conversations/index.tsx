@@ -4,6 +4,7 @@ import { Heart, Globe2, LineChart, MessageCircle, Calendar, ArrowRight } from 'l
 import { useNavigate } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
+import Loading from '@/components/ui/loading';
 import { conversationsService, topicsService } from '@/services';
 import { Conversation, Topic } from '@/types/api';
 
@@ -128,19 +129,13 @@ const Conversations = () => {
             Reconnect with the wisdom and ideas you shared with Beloved AI.
           </p>
         </div>
-        <div className="space-y-4">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-gray-50 rounded-lg p-4 animate-pulse">
-              <div className="flex gap-4">
-                <div className="w-10 h-10 bg-gray-200 rounded-full"></div>
-                <div className="flex-1">
-                  <div className="h-4 bg-gray-200 rounded w-1/3 mb-2"></div>
-                  <div className="h-3 bg-gray-200 rounded w-2/3 mb-2"></div>
-                  <div className="h-3 bg-gray-200 rounded w-1/4"></div>
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="flex items-center justify-center py-16">
+          <Loading
+            variant="dots"
+            size="lg"
+            className="text-[#4050B5]"
+            text="Loading conversations..."
+          />
         </div>
       </div>
     );
