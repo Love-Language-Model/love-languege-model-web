@@ -134,7 +134,7 @@ const Conversations = () => {
             variant="dots"
             size="lg"
             className="text-[#4050B5]"
-            text="Loading conversations..."
+            text="Loading conversations and messages"
           />
         </div>
       </div>
