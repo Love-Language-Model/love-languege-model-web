@@ -27,7 +27,7 @@ export const MessagesList = ({ messages, isSending = false }: MessagesListProps)
       {messages.map((msg) => (
         <MessageBubble key={msg.id} message={msg} />
       ))}
-      {!isSending && (
+      {isSending && (
         <div className="flex justify-start">
           <div className="flex max-w-[80%] flex-row">
             <div className="flex-shrink-0 mr-3">
@@ -35,10 +35,10 @@ export const MessagesList = ({ messages, isSending = false }: MessagesListProps)
                 <Heart className="w-4 h-4 text-pink-500" />
               </div>
             </div>
-            <div className="px-4 py-2 rounded-lg bg-gray-100 text-gray-900">
+            <div className="px-4 py-4 rounded-lg bg-gray-100 text-gray-900">
               <Loading
                 variant="dots"
-                size="md"
+                size="sm"
                 className="text-gray-500"
               />
             </div>
