@@ -146,16 +146,35 @@ const Chat = () => {
     const topicMessageContent = `I want to talk about: ${topic.name.en}`;
 
     if (!currentConversation && !conversationId) {
-      createConversationMutation.mutate({ topicId: topic.id! });
-
       const topicMessage: Message = {
-        id: Date.now().toString(),
+        id: `temp-${Date.now()}`,
         content: topicMessageContent,
         isAI: false,
         timestamp: new Date(),
-        conversationId: currentConversation?.id,
+        conversationId: undefined,
       };
       setMessages(prev => [...prev, topicMessage]);
+
+      createConversationMutation.mutate({ topicId: topic.id! }, {
+        onSuccess: (newConversation) => {
+          console.log('Conversation created for topic:', newConversation);
+          
+          setMessages(prev => prev.map(msg =>
+            msg.id === topicMessage.id
+              ? { ...msg, conversationId: newConversation.id }
+              : msg
+          ));
+
+          sendMessageMutation.mutate({
+            conversationId: newConversation.id,
+            content: topicMessageContent,
+          });
+        },
+        onError: (error) => {
+          console.error('Failed to create conversation for topic:', error);
+          setMessages(prev => prev.filter(msg => msg.id !== topicMessage.id));
+        }
+      });
     } else {
       const targetConversationId = currentConversation?.id || conversationId;
       if (targetConversationId) {
