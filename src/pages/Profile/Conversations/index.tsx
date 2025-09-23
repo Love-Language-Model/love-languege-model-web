@@ -132,7 +132,7 @@ const Conversations = () => {
         <div className="flex items-center justify-center py-16">
           <Loading
             variant="dots"
-            size="lg"
+            size="md"
             className="text-[#4050B5]"
             text="Loading conversations and messages"
           />

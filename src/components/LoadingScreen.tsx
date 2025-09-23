@@ -12,7 +12,7 @@ const LoadingScreen = () => {
         <h2 className="text-white text-xl font-light">{t('common.loadingScreen')}</h2>
         <Loading
           variant="dots"
-          size="lg"
+          size="md"
           className="text-white/60"
         />
       </div>
