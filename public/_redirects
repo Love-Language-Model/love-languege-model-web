@@ -1,2 +1,2 @@
 /* / 200
-/api / http://llm-api-prd.us-east-1.elasticbeanstalk.com
+/api/* http://llm-api-prd.us-east-1.elasticbeanstalk.com/:splat
