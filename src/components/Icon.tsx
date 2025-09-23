@@ -1,5 +1,21 @@
 import React from 'react';
 
+import AtomSimple from '@/assets/icons/AtomSimple.svg';
+import Dove from '@/assets/icons/Dove.svg';
+import EarthAmericas from '@/assets/icons/EarthAmericas.svg';
+import Flag from '@/assets/icons/Flag.svg';
+import HandshakeAngle from '@/assets/icons/HandshakeAngle.svg';
+import HandsPraying from '@/assets/icons/HandsPraying.svg';
+import HeartHalf from '@/assets/icons/HeartHalf.svg';
+import HomeHeart from '@/assets/icons/HomeHeart.svg';
+import IndustryWindows from '@/assets/icons/IndustryWindows.svg';
+import MicrochipAi from '@/assets/icons/MicrochipAi.svg';
+import MoneyBillSimpleWave from '@/assets/icons/MoneyBillSimpleWave.svg';
+import MoneyBillSimpleWave1 from '@/assets/icons/MoneyBillSimpleWave1.svg';
+import PersonWalkingWithCane from '@/assets/icons/PersonWalkingWithCane.svg';
+import ShieldHeart from '@/assets/icons/ShieldHeart.svg';
+import TreeDeciduous from '@/assets/icons/TreeDeciduous.svg';
+
 interface IconProps {
   name?: string;
   className?: string;
@@ -10,21 +26,21 @@ interface IconProps {
 }
 
 const iconMap: Record<string, string> = {
-  'tree-deciduous': '/src/assets/icons/TreeDeciduous.svg',
-  'shield-heart': '/src/assets/icons/ShieldHeart.svg',
-  'person-walking-with-cane': '/src/assets/icons/PersonWalkingWithCane.svg',
-  'atom-simple': '/src/assets/icons/AtomSimple.svg',
-  'flag': '/src/assets/icons/Flag.svg',
-  'microchip-ai': '/src/assets/icons/MicrochipAi.svg',
-  'hands-praying': '/src/assets/icons/HandsPraying.svg',
-  'handshake-angle': '/src/assets/icons/HandshakeAngle.svg',
-  'industry-windows': '/src/assets/icons/IndustryWindows.svg',
-  'money-bill-simple-wave-1': '/src/assets/icons/MoneyBillSimpleWave1.svg',
-  'money-bill-simple-wave': '/src/assets/icons/MoneyBillSimpleWave.svg',
-  'heart-half': '/src/assets/icons/HeartHalf.svg',
-  'general': '/src/assets/icons/EarthAmericas.svg',
-  'home-heart': '/src/assets/icons/HomeHeart.svg',
-  'dove': '/src/assets/icons/Dove.svg',
+  'tree-deciduous': TreeDeciduous,
+  'shield-heart': ShieldHeart,
+  'person-walking-with-cane': PersonWalkingWithCane,
+  'atom-simple': AtomSimple,
+  'flag': Flag,
+  'microchip-ai': MicrochipAi,
+  'hands-praying': HandsPraying,
+  'handshake-angle': HandshakeAngle,
+  'industry-windows': IndustryWindows,
+  'money-bill-simple-wave-1': MoneyBillSimpleWave1,
+  'money-bill-simple-wave': MoneyBillSimpleWave,
+  'heart-half': HeartHalf,
+  'general': EarthAmericas,
+  'home-heart': HomeHeart,
+  'dove': Dove,
 };
 
 export const Icon: React.FC<IconProps> = ({
