@@ -21,12 +21,12 @@ const Chat = () => {
     queryKey: ['topics'],
     queryFn: async () => {
       const response = await topicsService.getAll();
-      console.log('response', response.data);
+      // console.log('response', response.data);
       return response.data.items
     },
   });
 
-  console.log('topics', topics);
+  // console.log('topics', topics);
 
   const { data: conversationData, isLoading: conversationLoading } = useQuery({
     queryKey: ['conversation', conversationId],
@@ -49,7 +49,7 @@ const Chat = () => {
 
   useEffect(() => {
     if (messagesData?.items) {
-      console.log('Loading messages for conversation:', conversationId, messagesData.items);
+      // console.log('Loading messages for conversation:', conversationId, messagesData.items);
       setMessages(messagesData.items);
     }
   }, [messagesData, conversationId]);
@@ -72,7 +72,7 @@ const Chat = () => {
     mutationFn: ({ conversationId, content }: { conversationId: string; content: string }) =>
       conversationsService.sendMessage(conversationId, { content }),
     onSuccess: (response, variables) => {
-      console.log('Message sent successfully:', response);
+      // console.log('Message sent successfully:', response);
 
       const aiMessage: Message = {
         id: response.outMessage.id,
@@ -111,17 +111,17 @@ const Chat = () => {
 
       const targetConversationId = currentConversation?.id || conversationId;
       if (targetConversationId) {
-        console.log('Sending message to conversation:', targetConversationId, messageContent);
+        // console.log('Sending message to conversation:', targetConversationId, messageContent);
         sendMessageMutation.mutate({
           conversationId: targetConversationId,
           content: messageContent,
         });
       } else {
-        console.log('No conversation found, creating new one automatically');
+        // console.log('No conversation found, creating new one automatically');
         const defaultTopicId = topics.length > 0 ? topics[0].id : '';
         createConversationMutation.mutate({ topicId: defaultTopicId || '' }, {
           onSuccess: (newConversation) => {
-            console.log('Conversation created automatically:', newConversation);
+            // console.log('Conversation created automatically:', newConversation);
             setMessages(prev => prev.map(msg =>
               msg.id === userMessage.id
                 ? { ...msg, conversationId: newConversation.id }
@@ -157,8 +157,8 @@ const Chat = () => {
 
       createConversationMutation.mutate({ topicId: topic.id! }, {
         onSuccess: (newConversation) => {
-          console.log('Conversation created for topic:', newConversation);
-          
+          // console.log('Conversation created for topic:', newConversation);
+
           setMessages(prev => prev.map(msg =>
             msg.id === topicMessage.id
               ? { ...msg, conversationId: newConversation.id }
@@ -187,7 +187,7 @@ const Chat = () => {
         };
         setMessages(prev => [...prev, topicMessage]);
 
-        console.log('Sending topic message to existing conversation:', targetConversationId, topicMessageContent);
+        // console.log('Sending topic message to existing conversation:', targetConversationId, topicMessageContent);
         sendMessageMutation.mutate({
           conversationId: targetConversationId,
           content: topicMessageContent,
