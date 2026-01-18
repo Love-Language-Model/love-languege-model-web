@@ -55,7 +55,7 @@ const Header = ({ showLoginButton = true, whiteBackground = false, children }: H
               <Logo whiteBackground={whiteBackground} />
             </Link>
           </div>
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-4">
             {/*<Link to="/" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors`}>*/}
             {/*  {t('home.theMovement')}*/}
             {/*</Link>*/}
@@ -70,6 +70,13 @@ const Header = ({ showLoginButton = true, whiteBackground = false, children }: H
               <Link to="/login">
                 <Button variant="outline" className={`${whiteBackground ? 'border-black text-black hover:text-black hover:bg-black/5 hover:border-black/80' : 'bg-transparent border-white text-white hover:text-white hover:bg-white/5 hover:border-white/80'} transition-colors rounded-[28px]`}>
                   {t('auth.login')}
+                </Button>
+              </Link>
+            )}
+            {showLoginButton && !isAuthenticated && (
+              <Link to="/signup">
+                <Button variant="outline" className={`${whiteBackground ? 'border-black text-white hover:text-white hover:bg-black/80 hover:border-black/80 bg-black' : 'bg-transparent border-white text-white hover:text-white hover:bg-white/5 hover:border-white/80'} transition-colors rounded-[28px]`}>
+                  {t('auth.signUp')}
                 </Button>
               </Link>
             )}
