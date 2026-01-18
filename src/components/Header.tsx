@@ -56,15 +56,15 @@ const Header = ({ showLoginButton = true, whiteBackground = false, children }: H
             </Link>
           </div>
           <div className="hidden md:flex items-center gap-8">
-            <Link to="/" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors`}>
-              {t('home.theMovement')}
-            </Link>
-            <Link to="/" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors`}>
-              {t('home.donate')}
-            </Link>
-            <Link to="/" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors`}>
-              {t('home.share')}
-            </Link>
+            {/*<Link to="/" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors`}>*/}
+            {/*  {t('home.theMovement')}*/}
+            {/*</Link>*/}
+            {/*<Link to="/" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors`}>*/}
+            {/*  {t('home.donate')}*/}
+            {/*</Link>*/}
+            {/*<Link to="/" className={`${whiteBackground ? 'text-black/90 hover:text-black' : 'text-white/90 hover:text-white'} transition-colors`}>*/}
+            {/*  {t('home.share')}*/}
+            {/*</Link>*/}
             <LanguageToggle />
             {showLoginButton && !isAuthenticated && (
               <Link to="/login">
