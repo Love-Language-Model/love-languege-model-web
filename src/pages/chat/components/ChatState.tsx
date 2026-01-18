@@ -1,6 +1,6 @@
 import { MessageInput } from './MessageInput';
 import { MessagesList } from './MessagesList';
-import { TopicsList } from './TopicsList';
+// import { TopicsList } from './TopicsList';
 
 import { Message, Topic } from '@/types/chat';
 
@@ -24,20 +24,21 @@ export const ChatState = ({
   publicMode,
   setPublicMode,
   onSendMessage,
-  topics,
-  onTopicClick,
-  loading,
+  // topics,
+  // onTopicClick,
+  // loading,
   isSending = false
 }: ChatStateProps) => {
   return (
     <>
       <MessagesList messages={messages} isSending={isSending} />
-      <TopicsList
-        topics={topics}
-        onTopicClick={onTopicClick}
-        variant="compact"
-        loading={loading}
-      />
+      <div className="mb-4" />
+      {/*<TopicsList*/}
+      {/*  topics={topics}*/}
+      {/*  onTopicClick={onTopicClick}*/}
+      {/*  variant="compact"*/}
+      {/*  loading={loading}*/}
+      {/*/>*/}
       <div className="flex-shrink-0">
         <MessageInput
           message={message}

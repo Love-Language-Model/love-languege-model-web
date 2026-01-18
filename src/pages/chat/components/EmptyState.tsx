@@ -1,6 +1,6 @@
 import { ChatHeader } from './ChatHeader';
 import { MessageInput } from './MessageInput';
-import { TopicsList } from './TopicsList';
+// import { TopicsList } from './TopicsList';
 
 import { useTranslations } from '@/hooks/use-translations';
 import { Topic } from '@/types/chat';
@@ -22,9 +22,9 @@ export const EmptyState = ({
   publicMode,
   setPublicMode,
   onSendMessage,
-  topics,
-  onTopicClick,
-  loading
+  // topics,
+  // onTopicClick,
+  // loading
 }: EmptyStateProps) => {
   const { t } = useTranslations();
 
@@ -41,12 +41,12 @@ export const EmptyState = ({
           placeholder={t('chat.startTyping')}
         />
       </div>
-      <TopicsList
-        topics={topics}
-        onTopicClick={onTopicClick}
-        variant="prominent"
-        loading={loading}
-      />
+      {/*<TopicsList*/}
+      {/*  topics={topics}*/}
+      {/*  onTopicClick={onTopicClick}*/}
+      {/*  variant="prominent"*/}
+      {/*  loading={loading}*/}
+      {/*/>*/}
     </>
   );
 };
