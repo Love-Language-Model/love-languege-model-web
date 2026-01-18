@@ -41,10 +41,11 @@ export const MessageInput = ({
         className="w-full min-h-[100px] bg-transparent border-none text-gray-900 resize-none focus:outline-none placeholder-gray-500 mb-4"
       />
       <div className="flex items-center justify-between">
-        <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">
-          <Plus className="h-4 w-4 mr-2" />
-          {t('common.attach')}
-        </Button>
+        <div/>
+        {/*<Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">*/}
+        {/*  <Plus className="h-4 w-4 mr-2" />*/}
+        {/*  {t('common.attach')}*/}
+        {/*</Button>*/}
 
         <div className="flex items-center space-x-2">
           <span className="text-sm text-gray-500">{t('home.publicMode')}</span>
@@ -53,12 +54,12 @@ export const MessageInput = ({
             onCheckedChange={setPublicMode}
           />
           <Button
-            variant="ghost"
             size="sm"
             onClick={onSendMessage}
             disabled={!message.trim() || isSending}
-            className="text-gray-500 hover:text-gray-700"
+            className="text-white bg-black rounded-full hover:text-white hover:bg-black/70"
           >
+            {t('chat.send')}
             {isSending ? (
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-500"></div>
             ) : (
