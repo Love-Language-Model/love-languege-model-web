@@ -1,13 +1,13 @@
 import api from './api';
+
 import {
   Conversation,
   CreateConversationRequest,
-  Message,
   SendMessageRequest,
   SendMessageResponse,
   ConversationsResponse,
   MessagesResponse
-} from '../types/api';
+} from '@/types';
 
 export const conversationsService = {
   async getConversations(): Promise<ConversationsResponse> {
