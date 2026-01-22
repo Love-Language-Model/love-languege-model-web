@@ -35,7 +35,7 @@ const Login = () => {
       <Header showLoginButton={false} />
       <div className="flex-1 flex items-center justify-center pt-24">
         <div className="w-full max-w-md px-4">
-          <h1 className="text-3xl font-bold mb-8 text-center">{t('auth.welcomeBack')}</h1>
+          <h1 className="text-3xl font-bold font-title mb-8 text-center">{t('auth.welcomeBack')}</h1>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="email">{t('auth.email')}</Label>

@@ -13,7 +13,7 @@ const Index = () => {
       <Header />
       <main className="flex-1 flex items-center justify-center pt-24">
         <div className="w-full max-w-4xl px-4 text-center">
-          <h1 className="text-5xl font-bold mb-6">
+          <h1 className="text-5xl font-bold font-title mb-6">
             {t('home.title')}
           </h1>
           <p className="text-xl text-white/80 mb-12">
