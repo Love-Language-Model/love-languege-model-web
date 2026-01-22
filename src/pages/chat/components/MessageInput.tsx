@@ -32,7 +32,7 @@ export const MessageInput = ({
   };
 
   return (
-    <div className="bg-gray-100 rounded-lg p-6">
+    <div className="bg-amber-50 border-amber-300 border rounded-lg p-6">
       <textarea
         placeholder={placeholder}
         value={message}
