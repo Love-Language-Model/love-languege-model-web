@@ -20,6 +20,7 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: ['Noto Sans', 'sans-serif'],
+				title: ['Niveau Grotesk', 'Noto Sans', 'sans-serif']
 			},
 			colors: {
 				border: 'hsl(var(--border))',
